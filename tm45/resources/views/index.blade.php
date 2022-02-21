@@ -9,9 +9,34 @@
 @endsection
 
 @section('content')
-       <div class="container">
-           <div class="content">
-               
+    @guest
+        <div class="container">
+            <div class="content">
+            <p>pas encore authentifier</p>
+            <a href="{{route('login')}}">se connecter</a>
+            <a href="{{route('auth.register_form')}}">s'enregistrer</a>
+            {{-- <a href="{{route('pizza.ajout_form')}}">ajouter une pizza</a> --}}
+            
+            <table>
+                @foreach ($pizza as $p)
+                    <tr>
+                        <td>{{$p->nom}}</td>
+                        <td>{{$p->description}}</td>
+                        <td>{{$p->prix}}</td>
+                        
+                    </tr>
+                @endforeach
+            </table>
+
+            </div>
+        </div>
+    @endguest
+    @auth
+    <div class="container">
+        <div class="content">
+            <p>authentifier</p>
+            <a href="{{route('logout')}}">se deconnecter</a>
+            
             <a href="{{route('pizza.ajout_form')}}">ajouter une pizza</a>
             
             <table>
@@ -25,7 +50,8 @@
                 @endforeach
             </table>
 
-           </div>
-       </div>
+        </div>
+    </div>
+    @endauth
 @endsection
 

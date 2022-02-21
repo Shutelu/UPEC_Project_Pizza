@@ -12,10 +12,8 @@ class Pizza extends Model
     use HasFactory;
     use SoftDeletes;
 
-    // protected $primaryKey = 'pid';
-
     //relation *:*
-    // public function commande(){
-    //     return $this->belongsToMany(Commande::class,'com_pizza','pid','cid')->withPivot('commande_pizza');
-    // }
+    public function commande(){
+        return $this->belongsToMany(Commande::class,'com_pizza','id','id')->withPivot('commande_pizza');
+    }
 }

@@ -2,51 +2,33 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use App\Http\Models\Commande;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
-    // protected $primarykey = 'uid';
+    public $timestamps = false; // enlever les meta information 
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $hidden = ['mdp']; //controller et vue n'auront pas acces direct
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $fillable = ['nom','prenom','login', 'mdp', 'type']; //mettre a jour au moment de la creation
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected $attributes = ['type' => 'user']; // valeur par defaut de type
+
+    //renvoie le mdp
+    public function getAuthPassword(){
+        return $this->mdp;
+    }
+
+    public function isAdmin(){
+         return $this->type == 'admin';
+    }
 
     // relation 1:* cote principal user
-    // public function commandes(){
-    //     return $this->hasMany(Commande::class,'uid');
-    // }
+    public function commandes(){
+        return $this->hasMany(Commande::class,'id');
+    }
 }
