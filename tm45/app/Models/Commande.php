@@ -13,11 +13,11 @@ class Commande extends Model
 
     // relation 1:* cote multiple
     public function user(){
-        return $this->belongsTo(User::class,'id');
+        return $this->belongsTo(User::class);
     }
         
-    //relation *:*
+    //relation *:* avec commande
     public function pizza(){
-        return $this->belongsToMany(Pizza::class,'com_pizza','id','id')->withPivot('commande_pizza');
+        return $this->belongsToMany(Pizza::class);
     }
 }

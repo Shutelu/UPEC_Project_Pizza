@@ -11,15 +11,17 @@ class PizzaController extends Controller
 
     //pas authentifier
     public function index(){
-        $pizza = Pizza::all();
-        return view('index',['pizza'=>$pizza]);
+        // $pizza = Pizza::all();
+        $user = Auth::user();
+        $pizza = Pizza::paginate(3);
+        return view('index',['pizza'=>$pizza,'user'=>$user]);
     }
 
     //route home / une fois authentifier
     public function home(){
         $user = Auth::user();//comme on est auth on a acces a notre user
         $pizza = Pizza::all();
-        return view('home',['pizza' => $pizza]);
+        return view('home',['pizza' => $pizza,'user'=>$user]);
     }
 
     //ajout
@@ -40,6 +42,8 @@ class PizzaController extends Controller
         $pizza->description = $valid['desc'];
         $pizza->prix = $valid['prix'];
         $pizza->save();
+
+        $request->session()->flash('etat','Ajout effectuee !');
 
         return redirect()->route('index');
     }
@@ -65,6 +69,8 @@ class PizzaController extends Controller
         $pizza->prix = $valid['prix'];
         $pizza->save();
 
+        $request->session()->flash('etat','Modification effectuee !');
+
         return redirect()->route('index');
     }
 
@@ -72,6 +78,12 @@ class PizzaController extends Controller
     public function admin_home(){
         return view('admin.admin_home');
     }
+
+    //pagination
+    // public function PizzaPagination(Request $request){
+    //     $pizza = paginate(3);
+    //     return view('');
+    // }
     
     // //autorisation voir les pizzas pour user authentifier
     // public function view(Request $request,$id){

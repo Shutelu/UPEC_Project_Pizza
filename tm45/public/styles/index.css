@@ -5,7 +5,7 @@
     font-family: 'Poppins',sans-serif;
 }
 
-.container{
+.bg_img{
     background: url("/background/index.jpg");
     background-attachment: fixed;
     background-size: cover;
@@ -13,21 +13,46 @@
     background-repeat: no-repeat;
     width: 100%;
     min-height: 100vh;
-    display: flex;
+    position: relative;
+    /* display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 40px;
+    justify-content: center; */ 
+    padding: 50px 8%;
+    color: aliceblue;
 }
 
-.content{
-    background-color: aquamarine;
-    width: 90%;
+.navigation{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: rgb(236, 236, 236);
+    font-size: 18px;
+}
+
+.navigation ul li{
+    margin: 0 15px;
+    display: inline-block;
+}
+
+.navigation ul li a{
+    font-weight: 600;
+    color: red;
+}
+
+.contenu{
+    width: 100%;
+    min-height: 80vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    padding: 10px;
 }
 
 table{
     background-color: aliceblue;
     border-collapse: collapse;
     margin: 10px;
+    color: #000;
+    width: 90%;
 }
 
 tr,td{

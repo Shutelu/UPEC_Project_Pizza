@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PizzaController;
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\RegisterUserController;
+use App\Http\Controllers\CompteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,8 @@ use App\Http\Controllers\RegisterUserController;
 
 //route racine pas encore authentifier
 Route::get('/', [PizzaController::class,'index'])->name('index');
-//une fois authentifier
+// Route::get('/', [PizzaController::class,'index'])->middleware('auth')->name('index');//auth
+
 Route::get('/home',[PizzaController::class,'home'])->middleware('auth')->name('home');
 
 Route::get('/admin',[PizzaController::class,'admin_home'])->middleware('auth')->middleware('is_admin');
@@ -39,3 +41,11 @@ Route::post('/register',[RegisterUserController::class,'enregistrer']);
 Route::get('/login',[AuthenticatedSessionController::class,'login_form'])->name('login');
 Route::post('/login',[AuthenticatedSessionController::class,'login']);
 Route::get('/logout',[AuthenticatedSessionController::class,'logout'])->name('logout')->middleware('auth');
+
+//mon compte
+Route::get('/mon_compte',[CompteController::class,'mon_compte'])->name('mon_compte');
+Route::get('/mon_compte/edit_mdp',[CompteController::class,'edit_mdp_form'])->name('edit_mdp_form');
+Route::post('/mon_compte/edit_mdp',[CompteController::class,'edit_mdp'])->name('edit_mdp');
+
+//panier
+Route::get('/mon_panier',[CompteController::class,'mon_panier'])->name('mon_panier');

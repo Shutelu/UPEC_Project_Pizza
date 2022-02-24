@@ -10,10 +10,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Pizza extends Model
 {
     use HasFactory;
+    
     use SoftDeletes;
 
-    //relation *:*
+    //relation *:* avec pizza
     public function commande(){
-        return $this->belongsToMany(Commande::class,'com_pizza','id','id')->withPivot('commande_pizza');
+        return $this->belongsToMany(Commande::class);
     }
 }

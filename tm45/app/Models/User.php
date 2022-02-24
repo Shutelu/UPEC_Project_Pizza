@@ -10,7 +10,7 @@ class User extends Authenticatable
 {
     use HasFactory;
 
-    public $timestamps = false; // enlever les meta information 
+    public $timestamps = false; // enleve les meta informations
 
     protected $hidden = ['mdp']; //controller et vue n'auront pas acces direct
 
@@ -23,12 +23,13 @@ class User extends Authenticatable
         return $this->mdp;
     }
 
+    //test si user est admin
     public function isAdmin(){
          return $this->type == 'admin';
     }
 
     // relation 1:* cote principal user
     public function commandes(){
-        return $this->hasMany(Commande::class,'id');
+        return $this->hasMany(Commande::class);
     }
 }

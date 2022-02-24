@@ -34,6 +34,7 @@ class RegisterUserController extends Controller
         $user->save();
 
         //msg flash
+        $request->session()->flash('etat','Utilisateur enregistrer !');
 
         Auth::login($user); //connecter directement user
 

@@ -5,9 +5,11 @@
 @section('title','page admin')
 
 @section('content')
-    <div class="container">
-        <div class="content">
-            <p>je suis admin</p>
-        </div>
+    @auth
+    <div class="content">
+        <p>Vous authentifier admin</p>
+        
     </div>
+
+    @endauth  
 @endsection
