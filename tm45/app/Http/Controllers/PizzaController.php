@@ -20,7 +20,8 @@ class PizzaController extends Controller
     //route home / une fois authentifier
     public function home(){
         $user = Auth::user();//comme on est auth on a acces a notre user
-        $pizza = Pizza::all();
+        // $pizza = Pizza::all();
+        $pizza = Pizza::paginate(3);
         return view('home',['pizza' => $pizza,'user'=>$user]);
     }
 
@@ -77,6 +78,75 @@ class PizzaController extends Controller
     //page admin
     public function admin_home(){
         return view('admin.admin_home');
+    }
+
+    //ajout de pizza dans le panier
+    public function mon_panier_ajout($id){
+        $pizza = Pizza::findOrFail($id);
+
+        $panier = session()->get('panier');
+
+        //si le panier est vide et existe pas encore
+        if(!$panier){
+            $panier = [
+                $id => [
+                    'id' => $pizza->id,
+                    'nom' => $pizza->nom,
+                    'desc'=>$pizza->description,
+                    'prix'=>$pizza->prix,
+                    'qte'=>1,
+                ]
+            ];    
+            session()->put('panier',$panier);
+            return redirect()->back()->with('etat','ajout reussi !');
+        }
+        //si pizza existe deja
+        if(isset($panier[$id])){
+            $panier[$id]['qte'] ++;
+            session()->put('panier',$panier);
+            return redirect()->back()->with('etat','ajout en plus reussi !');
+        }
+
+        $panier[$id] = [
+            'id' => $pizza->id,
+            'nom' => $pizza->nom,
+            'desc'=>$pizza->description,
+            'prix'=>$pizza->prix,
+            'qte'=>1,
+        ];
+        session()->put('panier',$panier);
+        return redirect()->back()->with('etat','ajout reussi !');
+
+    }
+
+    //enlever la quantite de pizza si elle tombe a 0 alors enleve la pizza du panier
+    public function mon_panier_delete($id){
+        $panier = session()->get('panier');
+        if(isset($panier[$id])){
+            if($panier[$id]['qte'] == 1){
+                unset($panier[$id]);
+                session()->put('panier', $panier);
+                return redirect()->back()->with('etat','la pizza a etait enlevé !');
+            }
+            $panier[$id]['qte'] --;
+            session()->put('panier',$panier);
+            return redirect()->back()->with('etat','reduction de quantité reussi !');
+        }
+    }
+
+    public function mon_panier_miseajour(Request $request){
+        $request->validate([
+            'id_pizza' => 'required|numeric|min:1',
+            'quantite_miseajour' => 'required|numeric|min:1'
+        ]);
+
+        if($request->id_pizza && $request->quantite_miseajour){
+            $panier = session()->get('panier');
+            $panier[$request->id_pizza]['qte'] = $request->quantite_miseajour;
+            session()->put('panier',$panier);
+            return redirect()->back()->with('etat','modification de la quantité reussi !');
+        }
+
     }
 
     //pagination

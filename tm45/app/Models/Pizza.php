@@ -14,7 +14,7 @@ class Pizza extends Model
     use SoftDeletes;
 
     //relation *:* avec pizza
-    public function commande(){
+    public function commandes(){
         return $this->belongsToMany(Commande::class);
     }
 }

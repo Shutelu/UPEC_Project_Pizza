@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Commande;
+use App\Models\Pizza;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class CompteController extends Controller
 {
@@ -42,6 +45,30 @@ class CompteController extends Controller
     public function mon_panier(){
         $user = Auth::user();
         $commandes = $user->commandes; 
-        return view('compte.mon_panier',['user'=>$user,'commandes'=>$commandes]);
+        $panier = session()->get('panier');
+        // $panier = session()->get('panier')->paginate(4);//a demande au prof
+        return view('compte.mon_panier',['user'=>$user,'panier'=>$panier]);
+    }
+
+    //panier
+    public function cree_commande(){
+        $user = Auth::user();//reccup user
+        $panier = session()->get('panier');
+
+        $commande = new Commande();
+        $commande->user_id = $user->id;
+        $commande->statut = "envoye";
+        $user->commandes()->save($commande);
+
+        foreach($panier as $id => $opt){
+            $pizza = Pizza::findOrFail($id);
+            // $commande->pizza()->attach()
+            $commande->pizza()->attach($pizza,['qte'=>$opt['qte']]);
+        }
+        $commandes = $user->commandes;//nouvelle ajout 03/03/2022
+
+        session()->flash('etat','Une commande a ete cree !');
+
+        return view('compte.mon_panier',['user'=>$user,'panier'=>$panier]);
     }
 }

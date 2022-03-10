@@ -19,7 +19,7 @@ use App\Http\Controllers\CompteController;
 
 //route racine pas encore authentifier
 Route::get('/', [PizzaController::class,'index'])->name('index');
-// Route::get('/', [PizzaController::class,'index'])->middleware('auth')->name('index');//auth
+// Route::get('/', [PizzaController::class,'index'])->middleware('auth')->name('index');//auth probleme de route
 
 Route::get('/home',[PizzaController::class,'home'])->middleware('auth')->name('home');
 
@@ -48,4 +48,11 @@ Route::get('/mon_compte/edit_mdp',[CompteController::class,'edit_mdp_form'])->na
 Route::post('/mon_compte/edit_mdp',[CompteController::class,'edit_mdp'])->name('edit_mdp');
 
 //panier
-Route::get('/mon_panier',[CompteController::class,'mon_panier'])->name('mon_panier');
+Route::get('/mon_panier',[CompteController::class,'mon_panier'])->middleware('auth')->name('mon_panier');
+//ajout de pizza au panier
+Route::post('/mon_panier/ajout/{id}',[PizzaController::class,'mon_panier_ajout'])->middleware('auth')->name('mon_panier_ajout');//ajout si exite pas / exite 
+Route::post('/mon_panier/delete/{id}',[PizzaController::class,'mon_panier_delete'])->middleware('auth')->name('mon_panier_delete');
+Route::post('/mon_panier/mise_a_jour',[PizzaController::class,'mon_panier_miseajour'])->middleware('auth')->name('mon_panier_miseajour');
+// Route::post();
+//ajout commande
+Route::get('/mon_panier/commander',[CompteController::class,'cree_commande'])->middleware('auth')->name('cree_commande');

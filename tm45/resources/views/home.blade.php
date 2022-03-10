@@ -20,8 +20,15 @@
                             <td>{{$p->nom}}</td>
                             <td>{{$p->description}}</td>
                             <td>{{$p->prix}}</td>
-                            <td>Ajouter au panier</td>
                             
+                            @if($user->type == 'user')
+                                <td>
+                                    <form action="{{route('mon_panier_ajout',['id'=>$p->id])}}" method="POST">
+                                        @csrf
+                                        <button type="submit">Ajouter au panier</button>
+                                    </form>
+                                </td>
+                            @endif
                             @if ($user->type =='admin')
                                 <td><a href={{route('pizza.edit_form',['id'=>$p->id])}}>edit une pizza</a></td>
                                 <td>Suprimer une pizza</td>
@@ -29,6 +36,7 @@
                         </tr>
                     @endforeach
                 </table>
+                {{$pizza->links()}}
 
             </div>
 

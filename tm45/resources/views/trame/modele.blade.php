@@ -23,7 +23,7 @@
                     <ul>
                         <li><a href="{{route('index')}}">Accueil</a></li>
                         @auth
-                            <li><a href="{{route('mon_panier')}}">Panier</a></li>
+                            <li><a href="{{route('mon_panier')}}">Mon Panier</a></li>
                             {{-- @yield('compte') --}}
                             <li><a href="{{route('mon_compte')}}">Mon compte</a></li>
                             <li><a href="{{route('logout')}}">Se deconnecter</a></li>
