@@ -65,8 +65,8 @@
                         @endif
                         @if ($user->type == 'admin')
                             
-                            <td><a href={{route('pizza.edit_form',['id'=>$p->id])}}>edit une pizza</a></td>
-                            <td>Suprimer une pizza</td>
+                            <td><a href={{route('pizza.edit_form',['id'=>$p->id])}}>Modifier la pizza</a></td>
+                            <td>Suprimer la pizza</td>
                         @endif
                     </tr>
                 @endforeach

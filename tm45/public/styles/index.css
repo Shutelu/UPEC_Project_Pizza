@@ -32,11 +32,13 @@
 .navigation ul li{
     margin: 0 15px;
     display: inline-block;
+    background-color: rgb(22, 117, 85);
+    border-radius: 5px;
 }
 
 .navigation ul li a{
     font-weight: 600;
-    color: red;
+    color: rgb(238, 238, 238);
 }
 
 .contenu{

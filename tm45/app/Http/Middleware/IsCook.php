@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class IsAdmin
+class IsCook
 {
     /**
      * Handle an incoming request.
@@ -16,11 +16,10 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        // si l'user en cours est admin
-        if($request->user()->isAdmin()){
-            return $next($request); // requete suivante
+        if($request->user()->isCook()){
+            return $next($request);
         }
-        //sinon
-        abort(403,'Erreur : Vous n\'etes pas l\'admin');
+
+        abort(403,'Erreur : Vous n\'etes pas pizzaiolo !');
     }
 }

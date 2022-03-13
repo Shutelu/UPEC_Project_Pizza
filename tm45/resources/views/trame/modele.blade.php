@@ -28,7 +28,8 @@
                             @endif
                             {{-- @yield('compte') --}}
                             @if (Auth::user()->type == 'cook')
-                                <li><a href="{{route('cook_liste')}}">Liste des commandes</a></li>
+                                <li><a href="{{route('cook_liste')}}">Liste des commandes non traités</a></li>
+                                {{-- <li><a href="">Liste de tout les commandes</a></li> --}}
                             @endif
                             <li><a href="{{route('mon_compte')}}">Mon compte</a></li>
                             <li><a href="{{route('logout')}}">Se deconnecter</a></li>

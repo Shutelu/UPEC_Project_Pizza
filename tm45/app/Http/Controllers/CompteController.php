@@ -77,7 +77,7 @@ class CompteController extends Controller
 
     //cook list 
     public function cook_liste(){
-        $commande = commande::all();
+        $commande = Commande::where('statut','=','envoye')->get();
         return view('cook.cook_page',['commande'=>$commande]);
     }
 

@@ -28,6 +28,11 @@ class User extends Authenticatable
          return $this->type == 'admin';
     }
 
+    //test si user est cook
+    public function isCook(){
+        return $this->type == 'cook';
+    }
+
     // relation 1:* cote principal user
     public function commandes(){
         return $this->hasMany(Commande::class);

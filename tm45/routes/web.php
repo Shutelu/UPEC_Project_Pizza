@@ -59,5 +59,5 @@ Route::post('/mon_panier/deleteall/{id}',[PizzaController::class,'mon_panier_del
 Route::get('/mon_panier/commander',[CompteController::class,'cree_commande'])->middleware('auth')->name('cree_commande');
 
 //cook
-Route::get('/cook_liste',[CompteController::class,'cook_liste'])->middleware('auth')->name('cook_liste');//_>middleware('cook')
-Route::get('/commande_details/{id}',[CompteController::class,'commande_details'])->middleware('auth')->name('commande_details');
+Route::get('/cook_liste',[CompteController::class,'cook_liste'])->middleware('auth')->middleware('is_cook')->name('cook_liste');//_>middleware('cook')
+Route::get('/commande_details/{id}',[CompteController::class,'commande_details'])->middleware('auth')->middleware('is_cook')->name('commande_details');
