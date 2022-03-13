@@ -61,3 +61,7 @@ Route::get('/mon_panier/commander',[CompteController::class,'cree_commande'])->m
 //cook
 Route::get('/cook_liste',[CompteController::class,'cook_liste'])->middleware('auth')->middleware('is_cook')->name('cook_liste');//_>middleware('cook')
 Route::get('/commande_details/{id}',[CompteController::class,'commande_details'])->middleware('auth')->middleware('is_cook')->name('commande_details');
+
+Route::post('/cook/change_statut_traitement/{id}',[CompteController::class,'change_statut_traitement'])->middleware('auth')->middleware('is_cook')->name('change_statut_traitement');
+Route::post('/cook/change_statut_pret/{id}',[CompteController::class,'change_statut_pret'])->middleware('auth')->middleware('is_cook')->name('change_statut_pret');
+Route::post('/cook/change_statut_recupere/{id}',[CompteController::class,'change_statut_recupere'])->middleware('auth')->middleware('is_cook')->name('change_statut_recupere');

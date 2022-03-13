@@ -84,6 +84,28 @@ class CompteController extends Controller
     public function commande_details($id){
         $commande = Commande::findOrFail($id);
         $pizzas = $commande->pizza;
-        return view('cook.cook_cmd_details',['pizza'=>$pizzas]);
+        return view('cook.cook_cmd_details',['pizza'=>$pizzas,'commande'=>$commande]);
+    }
+
+    //les changements de statut
+    public function change_statut_traitement($id){
+        $commande = Commande::findOrFail($id);
+        $commande->statut = 'traitement';
+        $commande->save();
+        return redirect('/cook_liste')->with('etat','Le statut de la commande a ete mis en "traitement" !');
+    }
+
+    public function change_statut_pret($id){
+        $commande = Commande::findOrFail($id);
+        $commande->statut = 'pret';
+        $commande->save();
+        return redirect('/cook_liste')->with('etat','Le statut de la commande a ete mis en "pret" !');
+    }
+
+    public function change_statut_recupere($id){
+        $commande = Commande::findOrFail($id);
+        $commande->statut = 'recupere';
+        $commande->save();
+        return redirect('/cook_liste')->with('etat','Le statut de la commande a etet mis en "recupere" !');
     }
 }

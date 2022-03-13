@@ -21,4 +21,18 @@
             </tr>
         @endforeach
     </table>
+
+    {{-- changement de statut --}}
+    <form action="{{route('change_statut_traitement',['id'=>$commande->id])}}" method="POST">
+        @csrf
+        <button>Mettre la commande en traitement</button>
+    </form>
+    <form action="{{route('change_statut_pret',['id'=>$commande->id])}}" method="POST">
+        @csrf
+        <button>Mettre la commande en pret</button>
+    </form>
+    <form action="{{route('change_statut_recupere',['id'=>$commande->id])}}" method="POST">
+        @csrf
+        <button>Mettre la commande en recupere</button>
+    </form>
 @endsection
