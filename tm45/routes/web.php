@@ -53,6 +53,11 @@ Route::get('/mon_panier',[CompteController::class,'mon_panier'])->middleware('au
 Route::post('/mon_panier/ajout/{id}',[PizzaController::class,'mon_panier_ajout'])->middleware('auth')->name('mon_panier_ajout');//ajout si exite pas / exite 
 Route::post('/mon_panier/delete/{id}',[PizzaController::class,'mon_panier_delete'])->middleware('auth')->name('mon_panier_delete');
 Route::post('/mon_panier/mise_a_jour',[PizzaController::class,'mon_panier_miseajour'])->middleware('auth')->name('mon_panier_miseajour');
+Route::post('/mon_panier/deleteall/{id}',[PizzaController::class,'mon_panier_deleteall'])->middleware('auth')->name('mon_panier_deleteall');
 // Route::post();
 //ajout commande
 Route::get('/mon_panier/commander',[CompteController::class,'cree_commande'])->middleware('auth')->name('cree_commande');
+
+//cook
+Route::get('/cook_liste',[CompteController::class,'cook_liste'])->middleware('auth')->name('cook_liste');//_>middleware('cook')
+Route::get('/commande_details/{id}',[CompteController::class,'commande_details'])->middleware('auth')->name('commande_details');

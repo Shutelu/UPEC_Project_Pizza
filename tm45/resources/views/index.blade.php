@@ -42,6 +42,14 @@
             @endif
             
             <table >
+                <tr>
+                    <td>Nom</td>
+                    <td>Description</td>
+                    <td>Prix</td>
+                    @if (Auth::user()->type == 'user')
+                        <td>Actions</td>
+                    @endif
+                </tr>
                 @foreach ($pizza as $p)
                     <tr>
                         <td>{{$p->nom}}</td>

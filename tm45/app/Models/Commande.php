@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Models\User;
-use App\Http\Models\Pizza;
+use App\Models\User;
+use App\Models\Pizza;
 
 class Commande extends Model
 {
@@ -18,6 +18,6 @@ class Commande extends Model
         
     //relation *:* avec commande
     public function pizza(){
-        return $this->belongsToMany(Pizza::class);
+        return $this->belongsToMany(Pizza::class)->withPivot('qte');
     }
 }

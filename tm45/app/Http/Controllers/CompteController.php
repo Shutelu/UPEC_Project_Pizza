@@ -55,20 +55,35 @@ class CompteController extends Controller
         $user = Auth::user();//reccup user
         $panier = session()->get('panier');
 
-        $commande = new Commande();
-        $commande->user_id = $user->id;
-        $commande->statut = "envoye";
-        $user->commandes()->save($commande);
-
-        foreach($panier as $id => $opt){
-            $pizza = Pizza::findOrFail($id);
-            // $commande->pizza()->attach()
-            $commande->pizza()->attach($pizza,['qte'=>$opt['qte']]);
+        //si existe
+        if($panier){
+            $commande = new Commande();
+            $commande->user_id = $user->id;
+            $commande->statut = "envoye";
+            $user->commandes()->save($commande);
+    
+            foreach($panier as $id => $opt){
+                $pizza = Pizza::findOrFail($id);
+                // $commande->pizza()->attach()
+                $commande->pizza()->attach($pizza,['qte'=>$opt['qte']]);
+            }
+            
+            session()->forget('panier');//nouv ajout
+            session()->flash('etat','Une commande a ete cree !');
+    
+            return view('compte.mon_panier',['user'=>$user,'panier'=>$panier]);
         }
-        $commandes = $user->commandes;//nouvelle ajout 03/03/2022
+    }
 
-        session()->flash('etat','Une commande a ete cree !');
+    //cook list 
+    public function cook_liste(){
+        $commande = commande::all();
+        return view('cook.cook_page',['commande'=>$commande]);
+    }
 
-        return view('compte.mon_panier',['user'=>$user,'panier'=>$panier]);
+    public function commande_details($id){
+        $commande = Commande::findOrFail($id);
+        $pizzas = $commande->pizza;
+        return view('cook.cook_cmd_details',['pizza'=>$pizzas]);
     }
 }

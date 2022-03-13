@@ -53,6 +53,11 @@
                             @csrf
                             <button type='submit'>-</button>
                         </form>
+
+                        <form action="{{route('mon_panier_deleteall',['id'=>$id])}}" method="post">
+                            @csrf
+                            <button type="submit">supprimer</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

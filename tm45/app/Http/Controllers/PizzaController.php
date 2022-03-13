@@ -149,6 +149,15 @@ class PizzaController extends Controller
 
     }
 
+    public function mon_panier_deleteall($id){
+        $panier = session()->get('panier');
+        if(isset($panier[$id])){
+            unset($panier[$id]);
+            session()->put('panier',$panier);
+            return redirect()->back()->with('etat','la pizza a etait enlevé !');
+        }
+    }
+
     //pagination
     // public function PizzaPagination(Request $request){
     //     $pizza = paginate(3);

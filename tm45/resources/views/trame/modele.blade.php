@@ -23,8 +23,13 @@
                     <ul>
                         <li><a href="{{route('index')}}">Accueil</a></li>
                         @auth
-                            <li><a href="{{route('mon_panier')}}">Mon Panier</a></li>
+                            @if (Auth::user()->type == 'user') 
+                                <li><a href="{{route('mon_panier')}}">Mon Panier</a></li>
+                            @endif
                             {{-- @yield('compte') --}}
+                            @if (Auth::user()->type == 'cook')
+                                <li><a href="{{route('cook_liste')}}">Liste des commandes</a></li>
+                            @endif
                             <li><a href="{{route('mon_compte')}}">Mon compte</a></li>
                             <li><a href="{{route('logout')}}">Se deconnecter</a></li>
                         @endauth
