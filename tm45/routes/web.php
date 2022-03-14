@@ -63,6 +63,7 @@ Route::get('/edit_pizza/{id}',[PizzaController::class,'edit_form'])->middleware(
 Route::post('/edit_pizza/{id}',[PizzaController::class,'edit_pizza'])->middleware('auth')->middleware('is_admin')->name('pizza.edit'); //edition
 Route::get('/supp_pizza/{id}',[PizzaController::class,'suppPizza_form'])->middleware('auth')->middleware('is_admin')->name('admin.supp_form');//formulaire de suppression
 Route::post('/supp_pizza/{id}',[PizzaController::class,'suppPizza'])->middleware('auth')->middleware('is_admin')->name('admin.supp_pizza');//supression
+Route::get('/admin/tout_les_pizzas',[CompteController::class,'toutPizza'])->middleware('auth')->middleware('is_admin')->name('admin.tout_pizza');//affiche tout les pizza de la bd
 
 /*
 ============

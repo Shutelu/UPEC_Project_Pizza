@@ -180,4 +180,9 @@ class CompteController extends Controller
         return view('admin.admin_home');
     }
 
+    public function toutPizza(){
+        $pizzas = Pizza::withTrashed()->paginate(4);
+        return view('admin.admin_toutPizza',['pizzas'=>$pizzas]);
+    }
+
 }

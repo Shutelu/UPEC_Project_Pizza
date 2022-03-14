@@ -23,6 +23,7 @@ class PizzaController extends Controller
                 = edit_form(id)
                 = edit_pizza(request,id)
                 = suppPizza_form(id)
+                = suppPizza(id)
             - Pour la gestion du panier :
                 = mon_panier_ajout(id)
                 = mon_panier_delete(id)
@@ -115,7 +116,7 @@ class PizzaController extends Controller
             $pizza->delete();
             return redirect()->route('home')->with('etat','La pizza à été supprimé ! (utilisation du softdelete)');
         }
-        $pizza->delete();
+        $pizza->forceDelete();
         return redirect()->route('home')->with('etat','La pizza à été supprimé définitivement!');
     }
 
