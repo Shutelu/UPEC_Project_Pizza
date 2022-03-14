@@ -15,7 +15,25 @@ class CompteController extends Controller
 
     /*
     ===========================================================================
-        Ce controlleur servira pour la gestion du compte User, Cook et Admin
+        Ce controlleur servira :
+            - Pour la gestion du compte de User, Cook et Admin :
+                = mon_compte()
+                = edit_mdp_form()
+                = edit_mdp(request)
+                Pour Cook :
+                    = cook_liste()
+                    = commande_details(id)
+                    = change_statut_traitement(id)
+                    = change_statut_pret(id)
+                    = change_statut_recupere(id)
+                Pour Admin :
+                    = admin_home()
+            - Pour la gestion du panier et de la commande :
+                = mon_panier()
+                = cree_commande()
+                = mes_commandes()
+                = mes_commandes_nonRecup()
+                = mes_commandes_details(id)
     ===========================================================================
     */
 
@@ -61,13 +79,12 @@ class CompteController extends Controller
         $user = Auth::user();
         $commandes = $user->commandes; 
         $panier = session()->get('panier');
-        // $panier = session()->get('panier')->paginate(4);//a demande au prof
+        // $panier = session()->get('panier')->paginate(4);
         return view('compte.mon_panier',['user'=>$user,'panier'=>$panier]);
     }
 
-    //panier
-    public function cree_commande(){
-        $user = Auth::user();//reccup user
+    public function cree_commande(){ //function de creation de la commande
+        $user = Auth::user();
         $panier = session()->get('panier');
 
         //si existe
@@ -83,15 +100,14 @@ class CompteController extends Controller
                 $commande->pizza()->attach($pizza,['qte'=>$opt['qte']]);
             }
             
-            session()->forget('panier');//nouv ajout
+            session()->forget('panier');//enlever tout de la session panier une fois commander
             session()->flash('etat','La commande à été crée avec succès!');
     
             return view('compte.mon_panier',['user'=>$user,'panier'=>$panier]);
         }
     }
 
-    //voir les commandes passees
-    public function mes_commandes(){
+    public function mes_commandes(){ //renvoie la page pour voir tout les commandes passees par l'utilisateur
         $user = Auth::user();
         // $liste_commande = Commande::where('user_id','=',$user)->get();
         $liste_commande = $user->commandes()->paginate(3);
@@ -99,14 +115,13 @@ class CompteController extends Controller
         return view('user.mes_commandes',['liste'=>$liste_commande]);
     }
 
-    public function mes_commandes_nonRecup(){
+    public function mes_commandes_nonRecup(){ //renvoie la page pour voir les commandes passees par l'utilisateur different du statut "recupere"
         $user = Auth::user();
         $liste_commande_nonRecup = $user->commandes()->where('statut','!=','recupere')->paginate(3);
         return view('user.mes_commandes_nonRecup',['liste'=>$liste_commande_nonRecup]);
     }
 
-    //voir les details de la commande
-    public function mes_commandes_details($id){
+    public function mes_commandes_details($id){ //renvoie sur la page qui donne les details de la commande
         $user = Auth::user();
         $commande = Commande::findOrFail($id);
         $pizzas = $commande->pizza;
@@ -114,42 +129,55 @@ class CompteController extends Controller
     }
 
     /*
-    ============
+    =======================
         Codes pour Cook :
-    ============
+    =======================
     */
 
-    //cook list 
-    public function cook_liste(){
+    //==Partie gestion des commandes==
+
+    public function cook_liste(){ //renvoie la liste des commandes non traitées
         $commande = Commande::where('statut','=','envoye')->get();
         return view('cook.cook_page',['commande'=>$commande]);
     }
 
-    public function commande_details($id){
+    public function commande_details($id){ //renvoie sur la page qui donne les details de la commande
         $commande = Commande::findOrFail($id);
         $pizzas = $commande->pizza;
         return view('cook.cook_cmd_details',['pizza'=>$pizzas,'commande'=>$commande]);
     }
 
-    //les changements de statut
-    public function change_statut_traitement($id){
+    //==Partie changement des statuts de la commande==
+
+    public function change_statut_traitement($id){ //change le statut de la commande en traitement
         $commande = Commande::findOrFail($id);
         $commande->statut = 'traitement';
         $commande->save();
         return redirect('/cook_liste')->with('etat','Le statut de la commande a été mis en "traitement" !');
     }
 
-    public function change_statut_pret($id){
+    public function change_statut_pret($id){ //change le statut de la commande en pret
         $commande = Commande::findOrFail($id);
         $commande->statut = 'pret';
         $commande->save();
         return redirect('/cook_liste')->with('etat','Le statut de la commande a été mis en "pret" !');
     }
 
-    public function change_statut_recupere($id){
+    public function change_statut_recupere($id){ //change le statut de la commande en recupere
         $commande = Commande::findOrFail($id);
         $commande->statut = 'recupere';
         $commande->save();
         return redirect('/cook_liste')->with('etat','Le statut de la commande a été mis en "recupere" !');
     }
+
+    /*
+    ========================
+        Codes pour Admin :
+    ========================
+    */
+
+    public function admin_home(){ //renvoie la page admin
+        return view('admin.admin_home');
+    }
+
 }

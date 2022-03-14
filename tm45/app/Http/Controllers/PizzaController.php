@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Pizza;
+use App\Models\Commande;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PizzaController extends Controller
@@ -11,33 +12,50 @@ class PizzaController extends Controller
 
     /*
     ===========================================================================
-        Ce controlleur servira pour les functionnalitées de la pizza
+        Ce controlleur servira pour les functionalitées de la pizza et du panier:
+            - Pour user non connecté :
+                = index()
+            - Pour user connecté :
+                = home()
+            - Pour la gestion de la pizza :
+                = ajout_form()
+                = ajout_pizza(request)
+                = edit_form(id)
+                = edit_pizza(request,id)
+                = suppPizza_form(id)
+            - Pour la gestion du panier :
+                = mon_panier_ajout(id)
+                = mon_panier_delete(id)
+                = mon_panier_miseajour(request)
+                = mon_panier_deleteall(id)
     ===========================================================================
     */
 
-    //pas authentifier
-    public function index(){
+    //==Partie pour l'utilisateur non authentifié==
+
+    public function index(){ //renvoie sur la page index/principal meme si l'utilisateur n'est pas authentifié (avec pagination)
         // $pizza = Pizza::all();
         $user = Auth::user();
         $pizza = Pizza::paginate(3);
         return view('index',['pizza'=>$pizza,'user'=>$user]);
     }
 
-    //route home / une fois authentifier
-    public function home(){
-        $user = Auth::user();//comme on est auth on a acces a notre user
+    //==Partie pour l'utilisateur authentifié==
+
+    public function home(){ //renvoie la page home une fois l'utilisateur authentifié (avec pagination), ##probleme de route sans ce code(reste sur le login)
+        $user = Auth::user();
         // $pizza = Pizza::all();
         $pizza = Pizza::paginate(3);
         return view('home',['pizza' => $pizza,'user'=>$user]);
     }
 
-    //ajout
-    public function ajout_form(){
+    //==Partie sur la gestion de la pizza==
+
+    public function ajout_form(){ //renvoie sur la page d'ajout de pizza
         return view('pizza_ajout');
     }
 
-    //faire validation
-    public function ajout_pizza(Request $request){
+    public function ajout_pizza(Request $request){ //function d'ajout de pizza
         $valid = $request->validate([
             'nom' => 'required|alpha|min:1|max:30',
             'desc' => 'required|alpha|min:1|max:200',
@@ -55,14 +73,13 @@ class PizzaController extends Controller
         return redirect()->route('index');
     }
     
-    //edit 
-    public function edit_form($id){
+    public function edit_form($id){ //renvoie sur la page d'édition de la pizza
 
         $pizza = Pizza::findOrFail($id);
         return view('pizza_edit',['pizza'=>$pizza]);
     }
 
-    public function edit_pizza(Request $request,$id){
+    public function edit_pizza(Request $request,$id){ //function d'édition de la pizza
         $valid = $request->validate([
             'nom' => 'required|alpha|min:1|max:20',
             'desc' => 'required|alpha|min:1|max:200',
@@ -81,13 +98,30 @@ class PizzaController extends Controller
         return redirect()->route('index');
     }
 
-    //page admin
-    public function admin_home(){
-        return view('admin.admin_home');
+    public function suppPizza_form($id){ //renvoie le formulaire de la suppression de la pizza
+        $pizza = Pizza::findOrFail($id);
+        $bool = false;
+        // dd(sizeof($pizza->commandes) );
+        // dd($pizza->commandes);
+        if(sizeof($pizza->commandes) > 0){ //la pizza appartient à une commande
+            $bool = true;
+        }
+        return view('admin.supp_pizza_form',['pizza'=>$pizza,'bool'=>$bool]);
+    } 
+
+    public function suppPizza($id){
+        $pizza = Pizza::findOrFail($id);
+        if(sizeof($pizza->commandes) > 0){ //la pizza appartient à une commande
+            $pizza->delete();
+            return redirect()->route('home')->with('etat','La pizza à été supprimé ! (utilisation du softdelete)');
+        }
+        $pizza->delete();
+        return redirect()->route('home')->with('etat','La pizza à été supprimé définitivement!');
     }
 
-    //ajout de pizza dans le panier
-    public function mon_panier_ajout($id){
+    //==Partie sur la gestion du panier==
+
+    public function mon_panier_ajout($id){ //fonction permettant l'ajout de pizza dans le panier en utilisant les sessions pour l'utilisateur
         $pizza = Pizza::findOrFail($id);
 
         $panier = session()->get('panier');
@@ -125,8 +159,7 @@ class PizzaController extends Controller
 
     }
 
-    //enlever la quantite de pizza si elle tombe a 0 alors enleve la pizza du panier
-    public function mon_panier_delete($id){
+    public function mon_panier_delete($id){ // fonction permettant la suppression (si la quantité tombe à 0) ou la diminution des pizzas du panier pour l'utilisateur
         $panier = session()->get('panier');
         if(isset($panier[$id])){
             if($panier[$id]['qte'] == 1){
@@ -140,7 +173,7 @@ class PizzaController extends Controller
         }
     }
 
-    public function mon_panier_miseajour(Request $request){
+    public function mon_panier_miseajour(Request $request){ //fonction pour mettre à jour le nombre de quantité du panier saisi par l'utilisateur
         $request->validate([
             'id_pizza' => 'required|numeric|min:1',
             'quantite_miseajour' => 'required|numeric|min:1'
@@ -152,10 +185,9 @@ class PizzaController extends Controller
             session()->put('panier',$panier);
             return redirect()->back()->with('etat','modification de la quantité reussi !');
         }
-
     }
 
-    public function mon_panier_deleteall($id){
+    public function mon_panier_deleteall($id){ //fonction de suppression d'une pizza du panier pour l'utilisateur
         $panier = session()->get('panier');
         if(isset($panier[$id])){
             unset($panier[$id]);

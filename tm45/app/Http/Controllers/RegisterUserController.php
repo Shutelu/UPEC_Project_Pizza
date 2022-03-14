@@ -14,7 +14,9 @@ class RegisterUserController extends Controller
 
     /*
     ===========================================================================
-        Ce controlleur servira pour l'authentification des utilisateurs
+        Ce controlleur servira pour l'authentification des utilisateurs :
+            = register_form()
+            = enregister(request)
     ===========================================================================
     */
 

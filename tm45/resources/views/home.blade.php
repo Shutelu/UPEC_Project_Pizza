@@ -1,13 +1,13 @@
 {{--une fois autentifier--}}
 @extends('trame.modele')
 
-@section('title','Bienvenue')
+@section('title','Page Principal')
 
 
 @section('content')
     @auth
             <div class="content">
-                <p>Vous authentifier</p>
+                <p>Vous etes authentifié</p>
                 {{-- <a href="{{route('logout')}}">se deconnecter</a> --}}
 
                 @if ($user->type == 'admin')
@@ -19,6 +19,9 @@
                         <th>Nom</th>
                         <th>Description</th>
                         <th>Prix</th>
+                        @if (Auth::user()->type == 'user')
+                        <td>Actions</td>
+                        @endif
                     </tr>
                     @foreach ($pizza as $p)
                         <tr>
@@ -36,13 +39,12 @@
                             @endif
                             @if ($user->type =='admin')
                                 <td><a href={{route('pizza.edit_form',['id'=>$p->id])}}>Modifier la pizza</a></td>
-                                <td>Suprimer la pizza</td>
+                                <td><a href="{{route('admin.supp_form',['id'=>$p->id])}}">Suprimer la pizza</a></td>
                             @endif
                         </tr>
                     @endforeach
                 </table>
                 {{$pizza->links()}}
-
             </div>
 
     @endauth    

@@ -17,31 +17,52 @@ use App\Http\Controllers\CompteController;
 |
 */
 
-//route racine pas encore authentifier
+/*
+======================
+    Page principale
+======================
+*/
+
+//route racine pour utilisateur non authentifié
 Route::get('/', [PizzaController::class,'index'])->name('index');
 // Route::get('/', [PizzaController::class,'index'])->middleware('auth')->name('index');//auth probleme de route
 
-Route::get('/home',[PizzaController::class,'home'])->middleware('auth')->name('home');
+//route pour utilisateur authentifié
+Route::get('/home',[PizzaController::class,'home'])->middleware('auth')->name('home'); //pour user
 
-Route::get('/admin',[PizzaController::class,'admin_home'])->middleware('auth')->middleware('is_admin');
+/*
+=======================
+    L'enregistrement
+=======================
+*/
 
-//route ajout
-Route::get('/ajout_pizza',[PizzaController::class,'ajout_form'])->name('pizza.ajout_form');
-Route::post('/ajout_pizza',[PizzaController::class,'ajout_pizza'])->name('pizza.ajout');
+//enregistrement des nouveaux utilisateurs
+Route::get('/register',[RegisterUserController::class,'register_form'])->name('auth.register_form'); //formulaire enregistrement
+Route::post('/register',[RegisterUserController::class,'enregistrer']); //enregistrement
 
-//route edit
-Route::get('/edit_pizza/{id}',[PizzaController::class,'edit_form'])->name('pizza.edit_form');
-Route::post('/edit_pizza/{id}',[PizzaController::class,'edit_pizza'])->name('pizza.edit');
+/*
+===============
+    Le login
+===============
+*/
 
-//register user
-Route::get('/register',[RegisterUserController::class,'register_form'])->name('auth.register_form');
-Route::post('/register',[RegisterUserController::class,'enregistrer']);
+Route::get('/login',[AuthenticatedSessionController::class,'login_form'])->name('login'); //formulaire de connexion
+Route::post('/login',[AuthenticatedSessionController::class,'login']); //connexion
+Route::get('/logout',[AuthenticatedSessionController::class,'logout'])->name('logout')->middleware('auth'); //deconnexion
 
-//login user
-Route::get('/login',[AuthenticatedSessionController::class,'login_form'])->name('login');
-Route::post('/login',[AuthenticatedSessionController::class,'login']);
-Route::get('/logout',[AuthenticatedSessionController::class,'logout'])->name('logout')->middleware('auth');
+/*
+============
+    Admin
+============
+*/
 
+Route::get('/admin',[CompteController::class,'admin_home'])->middleware('auth')->middleware('is_admin');//pour admin
+Route::get('/ajout_pizza',[PizzaController::class,'ajout_form'])->middleware('auth')->middleware('is_admin')->name('pizza.ajout_form'); //formulaire ajout
+Route::post('/ajout_pizza',[PizzaController::class,'ajout_pizza'])->middleware('auth')->middleware('is_admin')->name('pizza.ajout'); //ajout
+Route::get('/edit_pizza/{id}',[PizzaController::class,'edit_form'])->middleware('auth')->middleware('is_admin')->name('pizza.edit_form'); //formulaire edition
+Route::post('/edit_pizza/{id}',[PizzaController::class,'edit_pizza'])->middleware('auth')->middleware('is_admin')->name('pizza.edit'); //edition
+Route::get('/supp_pizza/{id}',[PizzaController::class,'suppPizza_form'])->middleware('auth')->middleware('is_admin')->name('admin.supp_form');//formulaire de suppression
+Route::post('/supp_pizza/{id}',[PizzaController::class,'suppPizza'])->middleware('auth')->middleware('is_admin')->name('admin.supp_pizza');//supression
 
 /*
 ============

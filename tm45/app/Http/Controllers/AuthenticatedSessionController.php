@@ -10,7 +10,10 @@ class AuthenticatedSessionController extends Controller
     
     /*
     ===========================================================================
-        Ce controlleur servira pour l'authentification des utilisateurs
+        Ce controlleur servira pour l'authentification des utilisateurs :
+            = login_form()
+            = login(request)
+            = logout(requet)
     ===========================================================================
     */
 

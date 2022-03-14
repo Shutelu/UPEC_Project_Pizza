@@ -66,7 +66,7 @@
         <form action="{{route('cree_commande')}}" method="GET">
             <button>Passer la commande</button>
         </form>
-        {{-- {{$panier->links()}} a demander au prof--}}
+        {{-- {{$panier->links()}}  --}}
     @endif
     
 
