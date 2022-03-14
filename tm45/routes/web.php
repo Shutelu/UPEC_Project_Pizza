@@ -48,7 +48,8 @@ Route::get('/logout',[AuthenticatedSessionController::class,'logout'])->name('lo
     User
 ============
 */
-//mon compte
+
+//gestion du compte
 Route::get('/mon_compte',[CompteController::class,'mon_compte'])->name('mon_compte');
 Route::get('/mon_compte/edit_mdp',[CompteController::class,'edit_mdp_form'])->name('edit_mdp_form');
 Route::post('/mon_compte/edit_mdp',[CompteController::class,'edit_mdp'])->name('edit_mdp');

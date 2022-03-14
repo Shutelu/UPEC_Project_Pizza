@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Auth;
 class PizzaController extends Controller
 {
 
+    /*
+    ===========================================================================
+        Ce controlleur servira pour les functionnalitées de la pizza
+    ===========================================================================
+    */
+
     //pas authentifier
     public function index(){
         // $pizza = Pizza::all();

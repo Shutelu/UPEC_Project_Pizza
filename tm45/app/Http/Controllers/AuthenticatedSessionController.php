@@ -8,13 +8,17 @@ use Illuminate\Support\Facades\Auth;
 class AuthenticatedSessionController extends Controller
 {
     
-    //renvoie la page du formulaire de login
-    public function login_form(){
+    /*
+    ===========================================================================
+        Ce controlleur servira pour l'authentification des utilisateurs
+    ===========================================================================
+    */
+
+    public function login_form(){ //renvoie la page du formulaire de login
         return view('auth.log_form');
     }
 
-    //traitement des informations reccuperer par le formulaire de login
-    public function login(Request $request){
+    public function login(Request $request){ //function pour le traitement des informations réccuperées par le formulaire de login
 
         $request->validate([
             'login' => 'required|string|max:40|min:1',
@@ -37,20 +41,19 @@ class AuthenticatedSessionController extends Controller
             if($request->user()->isAdmin()){
                 return redirect()->intended('/admin');
             }
-            return redirect()->intended('/home');//rediriger la ou il voulait aller
+            return redirect()->intended('/home');//rediriger là ou il voulait aller
         }
 
         //si fail renvoie page precedente
         return back()->withErrors([
-            'login'=>'Les informations saisis exite pas',
+            'login'=>'Les informations saisis ne sont pas correctes',
         ]);
 
     }
 
-    //deconnection du compte
-    public function logout(Request $request){
+    public function logout(Request $request){ //deconnecter le compte courant
         Auth::logout();//deco
-        $request->session()->invalidate();//lutte attaque
+        $request->session()->invalidate();//lutte contre les attaques basées sur les sessions
         $request->session()->regenerateToken();
         $request->session()->flash('etat','Déconnexion réussie !');
         return redirect('/');

@@ -15,6 +15,7 @@
     <div>
         <form action="{{route('edit_mdp')}}" method="POST">
             @csrf
+            Ancien : <input type="password" name="ancien">
             Nouveau mdp: <input type="password" name="mdp">
             Confimation mdp: <input type="password" name="mdp_confirmation">
             <button type="submit">Envoyer</button>

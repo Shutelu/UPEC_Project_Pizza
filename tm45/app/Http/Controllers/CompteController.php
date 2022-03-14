@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Commande;
 use App\Models\Pizza;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -14,41 +14,50 @@ class CompteController extends Controller
 {
 
     /*
-    ============
-        User
-    ============
+    ===========================================================================
+        Ce controlleur servira pour la gestion du compte User, Cook et Admin
+    ===========================================================================
     */
-    //Controller pour la gestion du compte 
 
-    public function mon_compte(){
+    /*
+    ======================
+        Codes pour User :
+    ======================
+    */
+
+    //==Partie gestion du compte==
+
+    public function mon_compte(){ //renvoie vers la page de connexion à l'espace de compte de l'utilisateur en cours (user,cook,admin)
         $user = Auth::user();
         return view('compte.mon_compte',['user'=>$user]);
     }
 
-    public function edit_mdp_form(){
+    public function edit_mdp_form(){ //renvoie vers la page d'edition de mot de passe 
         $user = Auth::user();
         return view('compte.edit_mdp_form',['user'=>$user]);
     }
 
-    public function edit_mdp(Request $request){
+    public function edit_mdp(Request $request){ //function pour la modification de mot de passe
         $valid = $request->validate([
+            'ancien' => 'required|string|max:40|min:1',
             'mdp' => 'required|string|max:40|min:1|confirmed',
-            // 'new_mdp_confirmation' => 'required|string|max:40|min:1',
         ]);
+        if(Hash::check($valid['ancien'],Auth::user()->getAuthPassword())){ //verifier si l'ancien mot de passe correspond bien avant de changer
+            $user = Auth::user();
+            $user->mdp = Hash::make($valid['mdp']);
+            $user->save();
+    
+            $request->session()->flash('etat','Le mot de passe à été modifié avec succès !');
+            return redirect()->route('index');
+        }
 
-        $user = Auth::user();
-        $user->mdp = Hash::make($valid['mdp']);
-        $user->save();
-
-        $request->session()->flash('etat','Le mot de passe à été modifié !');
-
-        // $request->session()->flash('etat','Changement')
-        return redirect()->route('index');
+        return redirect()->route('edit_mdp_form')->with('etat','L\'ancien mot de passe n\'est pas correcte');
 
     }
 
-    //panier
-    public function mon_panier(){
+    //==Partie gestion du panier==
+    
+    public function mon_panier(){ //renvoie vers la page du panier
         $user = Auth::user();
         $commandes = $user->commandes; 
         $panier = session()->get('panier');
@@ -106,7 +115,7 @@ class CompteController extends Controller
 
     /*
     ============
-        Cook
+        Codes pour Cook :
     ============
     */
 

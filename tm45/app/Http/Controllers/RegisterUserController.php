@@ -12,13 +12,17 @@ use Illuminate\Auth\Events\Registered;
 class RegisterUserController extends Controller
 {
 
-    //retourne le formulaire de register
-    public function register_form(){
+    /*
+    ===========================================================================
+        Ce controlleur servira pour l'authentification des utilisateurs
+    ===========================================================================
+    */
+
+    public function register_form(){ //renvoie sur le formulaire d'enregistrement
         return view('auth.reg_form');
     }
 
-    //traitement du formulaire register
-    public function enregistrer(Request $request){
+    public function enregistrer(Request $request){ //function pour le traitement du formulaire d'enregistrement
         $valid = $request->validate([
             'nom' => 'required|string|max:40',
             'prenom' => 'required|string|max:40',
@@ -30,13 +34,11 @@ class RegisterUserController extends Controller
         $user->nom = $valid['nom'];
         $user->prenom = $valid['prenom'];
         $user->login = $valid['login'];
-        $user->mdp = Hash::make($valid['mdp']); //ne pas stocker mdp en clair et verifie
+        $user->mdp = Hash::make($valid['mdp']); //ne pas stocker le mot de passe en clair et verifie
         $user->save();
 
-        //msg flash
         $request->session()->flash('etat','Utilisateur enregistrer !');
-
-        Auth::login($user); //connecter directement user
+        Auth::login($user); //connecter directement l'utilisateur
 
         return redirect()->route('home');
 
