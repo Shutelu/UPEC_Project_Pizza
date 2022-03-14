@@ -25,6 +25,7 @@
                         @auth
                             @if (Auth::user()->type == 'user') 
                                 <li><a href="{{route('mon_panier')}}">Mon Panier</a></li>
+                                <li><a href="{{route('user.mes_commandes')}}">Mes Commandes</a></li>
                             @endif
                             {{-- @yield('compte') --}}
                             @if (Auth::user()->type == 'cook')

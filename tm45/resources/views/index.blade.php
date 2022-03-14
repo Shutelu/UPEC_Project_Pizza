@@ -14,12 +14,17 @@
 
     @guest
         
-        <p>pas encore authentifier</p>
+        <p>Pas encore authentifié</p>
         {{-- <a href="{{route('login')}}">se connecter</a> --}}
         {{-- <a href="{{route('auth.register_form')}}">s'enregistrer</a> --}}
         {{-- <a href="{{route('pizza.ajout_form')}}">ajouter une pizza</a> --}}
             
         <table >
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Prix</th>
+            </tr>
             @foreach ($pizza as $p)
                 <tr>
                     <td>{{$p->nom}}</td>

@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Session;
 
 class CompteController extends Controller
 {
+
+    /*
+    ============
+        User
+    ============
+    */
     //Controller pour la gestion du compte 
 
     public function mon_compte(){
@@ -34,7 +40,7 @@ class CompteController extends Controller
         $user->mdp = Hash::make($valid['mdp']);
         $user->save();
 
-        $request->session()->flash('etat','MDP modifier !');
+        $request->session()->flash('etat','Le mot de passe à été modifié !');
 
         // $request->session()->flash('etat','Changement')
         return redirect()->route('index');
@@ -69,11 +75,40 @@ class CompteController extends Controller
             }
             
             session()->forget('panier');//nouv ajout
-            session()->flash('etat','Une commande a ete cree !');
+            session()->flash('etat','La commande à été crée avec succès!');
     
             return view('compte.mon_panier',['user'=>$user,'panier'=>$panier]);
         }
     }
+
+    //voir les commandes passees
+    public function mes_commandes(){
+        $user = Auth::user();
+        // $liste_commande = Commande::where('user_id','=',$user)->get();
+        $liste_commande = $user->commandes()->paginate(3);
+        // dd($liste_commande);
+        return view('user.mes_commandes',['liste'=>$liste_commande]);
+    }
+
+    public function mes_commandes_nonRecup(){
+        $user = Auth::user();
+        $liste_commande_nonRecup = $user->commandes()->where('statut','!=','recupere')->paginate(3);
+        return view('user.mes_commandes_nonRecup',['liste'=>$liste_commande_nonRecup]);
+    }
+
+    //voir les details de la commande
+    public function mes_commandes_details($id){
+        $user = Auth::user();
+        $commande = Commande::findOrFail($id);
+        $pizzas = $commande->pizza;
+        return view('user.user_commandes_details',['pizza'=>$pizzas,'commande'=>$commande]);
+    }
+
+    /*
+    ============
+        Cook
+    ============
+    */
 
     //cook list 
     public function cook_liste(){
@@ -92,20 +127,20 @@ class CompteController extends Controller
         $commande = Commande::findOrFail($id);
         $commande->statut = 'traitement';
         $commande->save();
-        return redirect('/cook_liste')->with('etat','Le statut de la commande a ete mis en "traitement" !');
+        return redirect('/cook_liste')->with('etat','Le statut de la commande a été mis en "traitement" !');
     }
 
     public function change_statut_pret($id){
         $commande = Commande::findOrFail($id);
         $commande->statut = 'pret';
         $commande->save();
-        return redirect('/cook_liste')->with('etat','Le statut de la commande a ete mis en "pret" !');
+        return redirect('/cook_liste')->with('etat','Le statut de la commande a été mis en "pret" !');
     }
 
     public function change_statut_recupere($id){
         $commande = Commande::findOrFail($id);
         $commande->statut = 'recupere';
         $commande->save();
-        return redirect('/cook_liste')->with('etat','Le statut de la commande a etet mis en "recupere" !');
+        return redirect('/cook_liste')->with('etat','Le statut de la commande a été mis en "recupere" !');
     }
 }

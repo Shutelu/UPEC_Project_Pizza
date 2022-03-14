@@ -15,6 +15,11 @@
                 @endif
                 
                 <table>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Prix</th>
+                    </tr>
                     @foreach ($pizza as $p)
                         <tr>
                             <td>{{$p->nom}}</td>

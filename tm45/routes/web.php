@@ -42,6 +42,12 @@ Route::get('/login',[AuthenticatedSessionController::class,'login_form'])->name(
 Route::post('/login',[AuthenticatedSessionController::class,'login']);
 Route::get('/logout',[AuthenticatedSessionController::class,'logout'])->name('logout')->middleware('auth');
 
+
+/*
+============
+    User
+============
+*/
 //mon compte
 Route::get('/mon_compte',[CompteController::class,'mon_compte'])->name('mon_compte');
 Route::get('/mon_compte/edit_mdp',[CompteController::class,'edit_mdp_form'])->name('edit_mdp_form');
@@ -54,10 +60,20 @@ Route::post('/mon_panier/ajout/{id}',[PizzaController::class,'mon_panier_ajout']
 Route::post('/mon_panier/delete/{id}',[PizzaController::class,'mon_panier_delete'])->middleware('auth')->name('mon_panier_delete');
 Route::post('/mon_panier/mise_a_jour',[PizzaController::class,'mon_panier_miseajour'])->middleware('auth')->name('mon_panier_miseajour');
 Route::post('/mon_panier/deleteall/{id}',[PizzaController::class,'mon_panier_deleteall'])->middleware('auth')->name('mon_panier_deleteall');
-// Route::post();
 //ajout commande
 Route::get('/mon_panier/commander',[CompteController::class,'cree_commande'])->middleware('auth')->name('cree_commande');
 
+//user mes commandes
+Route::get('/user/commande/mes_commandes',[CompteController::class,'mes_commandes'])->middleware('auth')->name('user.mes_commandes');
+Route::get('/user/commande/mes_commandes_nonRecup',[CompteController::class,'mes_commandes_nonRecup'])->middleware('auth')->name('user.mes_commande_nonRecup');
+//voir les details de la commandes
+Route::get('/user/commande/mes_commandes/details/{id}',[CompteController::class,'mes_commandes_details'])->middleware('auth')->name('user.mes_commandes_details');
+
+/*
+============
+    Cook
+============
+*/
 //cook
 Route::get('/cook_liste',[CompteController::class,'cook_liste'])->middleware('auth')->middleware('is_cook')->name('cook_liste');//_>middleware('cook')
 Route::get('/commande_details/{id}',[CompteController::class,'commande_details'])->middleware('auth')->middleware('is_cook')->name('commande_details');

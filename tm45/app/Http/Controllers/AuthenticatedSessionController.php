@@ -52,7 +52,7 @@ class AuthenticatedSessionController extends Controller
         Auth::logout();//deco
         $request->session()->invalidate();//lutte attaque
         $request->session()->regenerateToken();
-        $request->session()->flash('etat','Deconnection reussi !');
+        $request->session()->flash('etat','Déconnexion réussie !');
         return redirect('/');
     }
 

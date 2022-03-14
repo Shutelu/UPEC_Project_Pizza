@@ -7,12 +7,14 @@
     <h3>Vous etes sur la liste des commandes des utilisateurs</h3>
     <table>
         <tr>
+            <th>No</th>
             <th>Lien</th>
             <th>Date</th>
             <th>Statut</th>
         </tr>
         @foreach ($commande as $c)
             <tr>
+                <td>{{$c->id}}</td>
                 <td><a href="{{route('commande_details',['id'=>$c->id])}}">Details de la commande</a></td>
                 <td>{{$c->created_at}}</td>
                 <td>{{$c->statut}}</td>

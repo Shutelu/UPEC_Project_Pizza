@@ -98,13 +98,13 @@ class PizzaController extends Controller
                 ]
             ];    
             session()->put('panier',$panier);
-            return redirect()->back()->with('etat','ajout reussi !');
+            return redirect()->back()->with('etat','Ajout réussie !');
         }
         //si pizza existe deja
         if(isset($panier[$id])){
             $panier[$id]['qte'] ++;
             session()->put('panier',$panier);
-            return redirect()->back()->with('etat','ajout en plus reussi !');
+            return redirect()->back()->with('etat','Ajout en plus réussie !');
         }
 
         $panier[$id] = [
@@ -115,7 +115,7 @@ class PizzaController extends Controller
             'qte'=>1,
         ];
         session()->put('panier',$panier);
-        return redirect()->back()->with('etat','ajout reussi !');
+        return redirect()->back()->with('etat','Ajout réussie !');
 
     }
 
