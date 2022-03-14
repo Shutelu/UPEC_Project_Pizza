@@ -63,10 +63,12 @@ class PizzaController extends Controller
             'prix' => 'bail|required|integer|gte:1|lte:120'
         ]);
 
+
         $pizza = new Pizza();
         $pizza->nom = $valid['nom'];
         $pizza->description = $valid['desc'];
         $pizza->prix = $valid['prix'];
+        $this->authorize('create',$pizza);
         $pizza->save();
 
         $request->session()->flash('etat','Ajout effectuee !');
@@ -112,6 +114,8 @@ class PizzaController extends Controller
 
     public function suppPizza($id){
         $pizza = Pizza::findOrFail($id);
+        $this->authorize('delete',$pizza);
+
         if(sizeof($pizza->commandes) > 0){ //la pizza appartient à une commande
             $pizza->delete();
             return redirect()->route('home')->with('etat','La pizza à été supprimé ! (utilisation du softdelete)');
@@ -190,6 +194,7 @@ class PizzaController extends Controller
 
     public function mon_panier_deleteall($id){ //fonction de suppression d'une pizza du panier pour l'utilisateur
         $panier = session()->get('panier');
+        // $this->authorize('delete',$pizza);
         if(isset($panier[$id])){
             unset($panier[$id]);
             session()->put('panier',$panier);

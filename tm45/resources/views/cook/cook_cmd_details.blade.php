@@ -1,6 +1,6 @@
 @extends('trame.modele')
 
-@section('title','liste des commandes des utilisateurs')
+@section('title','Details de la commande')
 
 @section('content')
 
@@ -35,4 +35,6 @@
         @csrf
         <button>Mettre la commande en recupere</button>
     </form>
+    <br>
+    <a href="{{route('home')}}">Retour</a>
 @endsection

@@ -23,7 +23,7 @@
         </tr>
     </table>
     @if ($bool)
-        <p>Cette pizza existe dans une commande, le mecanisme de softdelete sera utilisé </p>
+        <p>Cette pizza existe dans une ou plusieurs commande(s), le mecanisme de softdelete sera utilisé </p>
         <p>Voulez vous vraiment supprimer la pizza ?</p>
         <form action="{{route('admin.supp_pizza',['id'=>$pizza->id])}}" method="POST">
             @csrf

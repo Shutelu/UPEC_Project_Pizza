@@ -6,8 +6,8 @@
 
     <?php $total = 0 ?>
 
-    <h3>Vous etes sur le details de votre commande</h3>
-    <p>Le statut de votre commande est : {{$commande->statut}}</p>
+    <h3>Vous etes sur le details de la commande</h3>
+    <p>Le statut de la commande est : {{$commande->statut}}</p>
     <table>
         <tr>
             <th>Nom</th>
@@ -15,7 +15,7 @@
             <th>Prix</th>
             <th>Quantité</th>
         </tr>
-        @foreach ($pizza as $p)
+        @foreach ($pizzas as $p)
 
             <?php $total += $p['prix'] * $p->pivot->qte ?>
 

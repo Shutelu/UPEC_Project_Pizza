@@ -1,6 +1,6 @@
 @extends('trame.modele')
 
-@section('title','Suppression de la pizza')
+@section('title','Liste de tout les pizzas')
 
 {{--les liens css--}}
 @section('link')

@@ -34,6 +34,7 @@
                             @endif
                             @if (Auth::user()->type == 'admin')
                                 <li><a href="{{route('admin.tout_pizza')}}">Tout les pizzas</a></li>
+                                <li><a href="{{route('admin.tout_commandes')}}">Tout les commandes</a></li>
                             @endif
                             <li><a href="{{route('mon_compte')}}">Mon compte</a></li>
                             <li><a href="{{route('logout')}}">Se deconnecter</a></li>

@@ -28,6 +28,9 @@ class CompteController extends Controller
                     = change_statut_recupere(id)
                 Pour Admin :
                     = admin_home()
+                    = toutPizza()
+                    = toutCommandes()
+                    = details_commande(id)
             - Pour la gestion du panier et de la commande :
                 = mon_panier()
                 = cree_commande()
@@ -122,7 +125,6 @@ class CompteController extends Controller
     }
 
     public function mes_commandes_details($id){ //renvoie sur la page qui donne les details de la commande
-        $user = Auth::user();
         $commande = Commande::findOrFail($id);
         $pizzas = $commande->pizza;
         return view('user.user_commandes_details',['pizza'=>$pizzas,'commande'=>$commande]);
@@ -180,9 +182,19 @@ class CompteController extends Controller
         return view('admin.admin_home');
     }
 
-    public function toutPizza(){
+    public function toutPizza(){ //renvoie la page de toutes les pizzas avec les pizzas softdelete (affichage avancée)
         $pizzas = Pizza::withTrashed()->paginate(4);
         return view('admin.admin_toutPizza',['pizzas'=>$pizzas]);
     }
 
+    public function toutCommandes(){ //renvoie la page de toutes les commandes
+        $commandes = Commande::paginate(4);
+        return view('admin.admin_toutCommandes',['commandes'=>$commandes]);
+    }
+
+    public function details_commande($id){ //renvoie la page details de la commande
+        $commande = Commande::findOrFail($id);
+        $pizzas = $commande->pizza;
+        return view('admin.admin_commandeDetails',['pizzas'=>$pizzas,'commande'=>$commande]);
+    }
 }

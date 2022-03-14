@@ -20,7 +20,7 @@
                         <th>Description</th>
                         <th>Prix</th>
                         @if (Auth::user()->type == 'user')
-                        <td>Actions</td>
+                        <th>Actions</th>
                         @endif
                     </tr>
                     @foreach ($pizza as $p)
