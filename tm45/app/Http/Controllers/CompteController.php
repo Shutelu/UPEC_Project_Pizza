@@ -183,12 +183,12 @@ class CompteController extends Controller
     }
 
     public function toutPizza(){ //renvoie la page de toutes les pizzas avec les pizzas softdelete (affichage avancée)
-        $pizzas = Pizza::withTrashed()->paginate(4);
+        $pizzas = Pizza::withTrashed()->paginate(5);
         return view('admin.admin_toutPizza',['pizzas'=>$pizzas]);
     }
 
     public function toutCommandes(){ //renvoie la page de toutes les commandes
-        $commandes = Commande::paginate(4);
+        $commandes = Commande::paginate(5);
         return view('admin.admin_toutCommandes',['commandes'=>$commandes]);
     }
 

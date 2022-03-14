@@ -37,7 +37,7 @@ class PizzaController extends Controller
     public function index(){ //renvoie sur la page index/principal meme si l'utilisateur n'est pas authentifié (avec pagination)
         // $pizza = Pizza::all();
         $user = Auth::user();
-        $pizza = Pizza::paginate(3);
+        $pizza = Pizza::paginate(5);
         return view('index',['pizza'=>$pizza,'user'=>$user]);
     }
 
@@ -46,7 +46,7 @@ class PizzaController extends Controller
     public function home(){ //renvoie la page home une fois l'utilisateur authentifié (avec pagination), ##probleme de route sans ce code(reste sur le login)
         $user = Auth::user();
         // $pizza = Pizza::all();
-        $pizza = Pizza::paginate(3);
+        $pizza = Pizza::paginate(5);
         return view('home',['pizza' => $pizza,'user'=>$user]);
     }
 
@@ -59,8 +59,8 @@ class PizzaController extends Controller
     public function ajout_pizza(Request $request){ //function d'ajout de pizza
         $valid = $request->validate([
             'nom' => 'required|alpha|min:1|max:30',
-            'desc' => 'required|alpha|min:1|max:200',
-            'prix' => 'bail|required|integer|gte:1|lte:120'
+            'desc' => 'required|min:1|max:200',
+            'prix' => 'bail|required|integer|gte:1|lte:999'
         ]);
 
 
@@ -85,8 +85,8 @@ class PizzaController extends Controller
     public function edit_pizza(Request $request,$id){ //function d'édition de la pizza
         $valid = $request->validate([
             'nom' => 'required|alpha|min:1|max:20',
-            'desc' => 'required|alpha|min:1|max:200',
-            'prix' => 'bail|required|integer|gte:1|lte:120'
+            'desc' => 'required|min:1|max:200',
+            'prix' => 'bail|required|integer|gte:1|lte:999'
         ]);
 
         $pizza = Pizza::findOrFail($id);
