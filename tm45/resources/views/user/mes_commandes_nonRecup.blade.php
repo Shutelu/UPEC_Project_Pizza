@@ -4,8 +4,9 @@
 
 @section('content')
 
-    <h3>Vous êtes sur la liste de vos commandes sans satut "recupere"</h3>
-    <a href="{{route('user.mes_commandes')}}">Voir tout les commandes passées</a>
+    <h1>Liste de vos commandes passées sans "recupere"</h1>
+    <p>Description : Vous êtes sur la liste de vos commandes sans le statut "recupere"</p>
+    <a href="{{route('user.mes_commandes')}}">Voir toutes les commandes passées</a>
     <table>
         <tr>
             <th>Lien</th>

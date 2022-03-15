@@ -4,7 +4,8 @@
 
 @section('content')
 
-    <h3>Vous êtes sur le details de la commande</h3>
+    <h3>Détails de la commande non traitées</h3>
+    <p>Voici la liste des pizzas de la commande</p>
     <table>
         <tr>
             <th>Nom</th>

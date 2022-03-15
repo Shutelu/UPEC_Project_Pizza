@@ -22,6 +22,7 @@
                 <input type="text" id="prix" name="prix" value="{{$pizza->prix}}">
                 <button type="submit">envoyer</button>
             </form>
+            <a href="{{route('home')}}">Retour</a>
         </div>
     </div>
 

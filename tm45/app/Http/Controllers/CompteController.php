@@ -34,7 +34,7 @@ class CompteController extends Controller
                     = commande_par_date(request)
                     = tri_statut()
                     = tri_date()
-            - Pour la gestion du panier et de la commande :
+            - Pour la gestion du panier et de la commande de user:
                 = mon_panier()
                 = cree_commande()
                 = mes_commandes()
@@ -116,14 +116,14 @@ class CompteController extends Controller
     public function mes_commandes(){ //renvoie la page pour voir tout les commandes passees par l'utilisateur
         $user = Auth::user();
         // $liste_commande = Commande::where('user_id','=',$user)->get();
-        $liste_commande = $user->commandes()->paginate(3);
+        $liste_commande = $user->commandes()->orderBy('created_at','asc')->paginate(3);
         // dd($liste_commande);
         return view('user.mes_commandes',['liste'=>$liste_commande]);
     }
 
     public function mes_commandes_nonRecup(){ //renvoie la page pour voir les commandes passees par l'utilisateur different du statut "recupere"
         $user = Auth::user();
-        $liste_commande_nonRecup = $user->commandes()->where('statut','!=','traitement')->paginate(3);
+        $liste_commande_nonRecup = $user->commandes()->where('statut','!=','recupere')->paginate(3);
         return view('user.mes_commandes_nonRecup',['liste'=>$liste_commande_nonRecup]);
     }
 
@@ -142,7 +142,7 @@ class CompteController extends Controller
     //==Partie gestion des commandes==
 
     public function cook_liste(){ //renvoie la liste des commandes non traitées
-        $commande = Commande::where('statut','=','envoye')->get();
+        $commande = Commande::where('statut','!=','traitement')->orderBy('created_at','asc')->get();
         return view('cook.cook_page',['commande'=>$commande]);
     }
 

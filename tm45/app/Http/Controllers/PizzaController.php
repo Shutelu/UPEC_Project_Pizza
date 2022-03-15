@@ -24,7 +24,7 @@ class PizzaController extends Controller
                 = edit_pizza(request,id)
                 = suppPizza_form(id)
                 = suppPizza(id)
-            - Pour la gestion du panier :
+            - Pour la gestion du panier de l'user:
                 = mon_panier_ajout(id)
                 = mon_panier_delete(id)
                 = mon_panier_miseajour(request)
@@ -118,10 +118,10 @@ class PizzaController extends Controller
 
         if(sizeof($pizza->commandes) > 0){ //la pizza appartient à une commande
             $pizza->delete();
-            return redirect()->route('home')->with('etat','La pizza à été supprimé ! (utilisation du softdelete)');
+            return redirect()->route('home')->with('etat','La pizza a été supprimé ! (utilisation du softdelete)');
         }
         $pizza->forceDelete();
-        return redirect()->route('home')->with('etat','La pizza à été supprimé définitivement!');
+        return redirect()->route('home')->with('etat','La pizza a été supprimé définitivement!');
     }
 
     //==Partie sur la gestion du panier==

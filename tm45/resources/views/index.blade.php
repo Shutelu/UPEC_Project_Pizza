@@ -14,7 +14,8 @@
 
     @guest
         
-        <p>Vous n'etes pas encore authentifié</p>
+        <p>Vous n'êtes pas encore authentifié</p>
+        <p>Voici la liste des pizzas disponibles</p>
         {{-- <a href="{{route('login')}}">se connecter</a> --}}
         {{-- <a href="{{route('auth.register_form')}}">s'enregistrer</a> --}}
         {{-- <a href="{{route('pizza.ajout_form')}}">ajouter une pizza</a> --}}
@@ -40,10 +41,12 @@
     @auth
 
             <p>Vous êtes authentifié</p>
+            <p>Voici la liste des pizzas disponibles</p>
             {{-- <a href="{{route('logout')}}">se deconnecter</a> --}}
 
-            @if($user->type =='admin')
-                <a href="{{route('pizza.ajout_form')}}">ajouter une pizzaaaa</a>
+            @if(Auth::user()->type =='admin')
+                <p>Sur cette page vous avez la possibilité d'éditer les pizzas !</p>
+                <a href="{{route('pizza.ajout_form')}}">ajouter une pizza</a>
             @endif
             
             <table >

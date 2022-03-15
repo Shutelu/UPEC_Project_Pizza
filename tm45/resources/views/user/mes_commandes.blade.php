@@ -4,7 +4,8 @@
 
 @section('content')
 
-    <h3>Vous êtes sur la liste de tout vos commandes passées</h3>
+    <h1>Liste de vos commandes passées</h1>
+    <p>Description : Vous êtes sur la liste de toutes les commandes que vous avez passées !</p>
     <a href="{{route('user.mes_commande_nonRecup')}}">Voir seulement les commandes non reccupérées</a>
     <table>
         <tr>

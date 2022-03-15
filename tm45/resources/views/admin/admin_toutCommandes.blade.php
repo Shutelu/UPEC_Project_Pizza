@@ -9,7 +9,7 @@
 
 {{-- les contenues --}}
 @section('content')
-    <h1>Gestion des commandes</h1>
+    <h1>Gestion des Commandes</h1>
     <br>
     <p>Description : Vous êtes sur l'affichage avancée de toutes les commandes qui se trouve dans la base de donnée !</p>
 

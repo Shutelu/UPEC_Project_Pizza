@@ -9,7 +9,7 @@
 
 {{-- les contenues --}}
 @section('content')
-    <h1>Vous êtes sur la suppression d'une pizza</h1>
+    <h1>Suppression d'une pizza</h1>
     <table>
         <tr>
             <th>Nom</th>
@@ -23,7 +23,7 @@
         </tr>
     </table>
     @if ($bool)
-        <p>Cette pizza existe dans une ou plusieurs commande(s), le mecanisme de softdelete sera utilisé </p>
+        <p>Cette pizza existe dans une ou plusieurs commande(s) ! <br> Le mecanisme de softdelete sera utilisé </p>
         <p>Voulez vous vraiment supprimer la pizza ?</p>
         <form action="{{route('admin.supp_pizza',['id'=>$pizza->id])}}" method="POST">
             @csrf
@@ -33,7 +33,7 @@
         
     @endif
     @if (!$bool)
-        <p>Cette pizza n'exite dans aucune commande, la pizza sera supprimer definitivement de la base de donnée</p>
+        <p>Cette pizza n'exite dans aucune commande ! <br> La pizza sera supprimer définitivement de la base de donnée</p>
         <p>Voulez vous vraiment supprimer la pizza ?</p>
         <form action="{{route('admin.supp_pizza',['id'=>$pizza->id])}}" method="POST">
             @csrf

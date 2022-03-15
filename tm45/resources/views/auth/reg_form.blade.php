@@ -3,7 +3,8 @@
 @section('title','le register')
 
 @section('content')
-    <p>Enregistrement</p>
+    <h1>S'inscrire sur le site</h1>
+    <p>Voici le formulaire d'inscription :</p>
     
     <form method="post">
         @csrf

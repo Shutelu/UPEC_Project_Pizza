@@ -9,8 +9,13 @@
 
 {{-- les contenues --}}
 @section('content')
-    <h1>Liste des toutes les pizzas</h1>
-    <p>Vous êtes sur l'affichage avancée de toutes les pizzas qui se trouve dans la base de donnée</p>
+    <h1>Gestion des Pizzas</h1>
+    <p>Description : Vous êtes sur l'affichage avancée de toutes les pizzas qui se trouve dans la base de donnée !</p>
+
+    @if (Auth::user()->type == 'admin')
+        <a href="{{route('pizza.ajout_form')}}">ajouter une pizza</a>
+    @endif
+
     <table>
         <tr>
             <th>Nom</th>

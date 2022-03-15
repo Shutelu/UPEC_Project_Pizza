@@ -4,7 +4,8 @@
 
 @section('content')
 
-    <h3>Vous êtes sur la liste des commandes des utilisateurs</h3>
+    <h3>Liste des commandes non traités</h3>
+    <p>Description : Vous êtes sur la liste de toutes les commandes sans le statut "traitement" triées par le moment d'arrivé (de création)</p>
     <table>
         <tr>
             <th>No</th>

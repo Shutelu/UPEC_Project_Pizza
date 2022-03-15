@@ -19,4 +19,5 @@
         <input type="number" id="prix" name="prix" value="{{old('prix')}}">
         <button type="submit">envoyer</button>
     </form>   
+    <a href="{{route('home')}}">Retour</a>
 @endsection

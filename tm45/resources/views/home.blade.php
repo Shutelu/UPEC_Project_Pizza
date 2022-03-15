@@ -8,9 +8,10 @@
     @auth
             <div class="content">
                 <p>Vous êtes authentifié</p>
-                {{-- <a href="{{route('logout')}}">se deconnecter</a> --}}
+                <p>Voici la liste des pizzas disponibles</p>
 
-                @if ($user->type == 'admin')
+                @if (Auth::user()->type == 'admin')
+                    <p>Sur cette page vous avez la possibilité d'éditer les pizzas !</p>
                     <a href="{{route('pizza.ajout_form')}}">ajouter une pizza</a>
                 @endif
                 

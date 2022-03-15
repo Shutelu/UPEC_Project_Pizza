@@ -39,7 +39,7 @@ class RegisterUserController extends Controller
         $user->mdp = Hash::make($valid['mdp']); //ne pas stocker le mot de passe en clair et verifie
         $user->save();
 
-        $request->session()->flash('etat','Utilisateur enregistrer !');
+        $request->session()->flash('etat','Utilisateur enregistrer ! Bienvenue !');
         Auth::login($user); //connecter directement l'utilisateur
 
         return redirect()->route('home');
