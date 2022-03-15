@@ -39,7 +39,7 @@
 
     @auth
 
-            <p>Vous etes authentifié</p>
+            <p>Vous êtes authentifié</p>
             {{-- <a href="{{route('logout')}}">se deconnecter</a> --}}
 
             @if($user->type =='admin')

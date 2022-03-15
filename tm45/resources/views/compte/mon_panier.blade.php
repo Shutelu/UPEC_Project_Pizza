@@ -3,7 +3,7 @@
 @section('title','Votre panier')
 
 @section('content')
-    <p>Vous etes sur le panier de {{$user->nom}}</p>
+    <p>Vous êtes sur le panier de {{$user->nom}}</p>
 
     {{-- <form action="{{route('cree_commande')}}" method="POST">
         @csrf

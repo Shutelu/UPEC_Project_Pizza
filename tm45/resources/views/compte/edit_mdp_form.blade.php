@@ -11,7 +11,7 @@
 
 {{-- les contenues --}}
 @section('content')
-    <h1>Vous etes sur la modification de mdp</h1>
+    <h1>Vous êtes sur la modification de mdp</h1>
     <div>
         <form action="{{route('edit_mdp')}}" method="POST">
             @csrf

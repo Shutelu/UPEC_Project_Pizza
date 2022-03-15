@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <h3>Vous etes sur la liste des commandes des utilisateurs</h3>
+    <h3>Vous êtes sur la liste des commandes des utilisateurs</h3>
     <table>
         <tr>
             <th>No</th>

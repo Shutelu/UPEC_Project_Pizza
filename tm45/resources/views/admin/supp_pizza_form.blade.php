@@ -9,7 +9,7 @@
 
 {{-- les contenues --}}
 @section('content')
-    <h1>Vous etes sur la suppression d'une pizza</h1>
+    <h1>Vous êtes sur la suppression d'une pizza</h1>
     <table>
         <tr>
             <th>Nom</th>

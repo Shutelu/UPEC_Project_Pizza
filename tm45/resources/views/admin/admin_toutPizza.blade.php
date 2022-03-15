@@ -10,7 +10,7 @@
 {{-- les contenues --}}
 @section('content')
     <h1>Liste des toutes les pizzas</h1>
-    <p>Vous etes sur l'affichage avancée de toutes les pizzas qui se trouve dans la base de donnée</p>
+    <p>Vous êtes sur l'affichage avancée de toutes les pizzas qui se trouve dans la base de donnée</p>
     <table>
         <tr>
             <th>Nom</th>

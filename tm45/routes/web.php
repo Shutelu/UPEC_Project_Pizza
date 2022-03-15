@@ -66,6 +66,9 @@ Route::post('/supp_pizza/{id}',[PizzaController::class,'suppPizza'])->middleware
 Route::get('/admin/tout_les_pizzas',[CompteController::class,'toutPizza'])->middleware('auth')->middleware('is_admin')->name('admin.tout_pizza');//affiche tout les pizza de la bd
 Route::get('/admin/tout_les_commandes',[CompteController::class,'toutCommandes'])->middleware('auth')->middleware('is_admin')->name('admin.tout_commandes');// liste de tout commandes
 Route::get('/admin/details_commandes/{id}',[CompteController::class,'details_commande'])->middleware('auth')->middleware('is_admin')->name('admin.details_commande');//details de la commande
+Route::post('/admin/voir_commande_par_date',[CompteController::class,'commande_par_date'])->middleware('auth')->middleware('is_admin')->name('admin.admin_voir_commande_date');
+Route::get('/admin/tri_par_statut',[CompteController::class,'tri_statut'])->middleware('auth')->middleware('is_admin')->name('admin.commande_tri_statut');
+Route::get('/admin/tri_par_date',[CompteController::class,'tri_date'])->middleware('auth')->middleware('is_admin')->name('admin.commande_tri_date');
 /*
 ============
     User
@@ -98,7 +101,7 @@ Route::get('/user/commande/mes_commandes/details/{id}',[CompteController::class,
     Cook
 ============
 */
-//cook
+
 Route::get('/cook_liste',[CompteController::class,'cook_liste'])->middleware('auth')->middleware('is_cook')->name('cook_liste');//_>middleware('cook')
 Route::get('/commande_details/{id}',[CompteController::class,'commande_details'])->middleware('auth')->middleware('is_cook')->name('commande_details');
 

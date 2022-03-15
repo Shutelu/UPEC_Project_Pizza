@@ -6,7 +6,7 @@
 
     <?php $total = 0 ?>
 
-    <h3>Vous etes sur le details de votre commande</h3>
+    <h3>Vous êtes sur le details de votre commande</h3>
     <p>Le statut de votre commande est : {{$commande->statut}}</p>
     <table>
         <tr>
@@ -27,6 +27,6 @@
             </tr>
         @endforeach
     </table>
-    <h3>Total : {{$total}}</h3>
+    <h3>Total de la commande: {{$total}}</h3>
     <a href="{{route('home')}}">Retour</a>
 @endsection

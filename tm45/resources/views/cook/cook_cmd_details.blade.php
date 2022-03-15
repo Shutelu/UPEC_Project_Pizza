@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <h3>Vous etes sur le details de la commande</h3>
+    <h3>Vous êtes sur le details de la commande</h3>
     <table>
         <tr>
             <th>Nom</th>

@@ -31,6 +31,9 @@ class CompteController extends Controller
                     = toutPizza()
                     = toutCommandes()
                     = details_commande(id)
+                    = commande_par_date(request)
+                    = tri_statut()
+                    = tri_date()
             - Pour la gestion du panier et de la commande :
                 = mon_panier()
                 = cree_commande()
@@ -120,7 +123,7 @@ class CompteController extends Controller
 
     public function mes_commandes_nonRecup(){ //renvoie la page pour voir les commandes passees par l'utilisateur different du statut "recupere"
         $user = Auth::user();
-        $liste_commande_nonRecup = $user->commandes()->where('statut','!=','recupere')->paginate(3);
+        $liste_commande_nonRecup = $user->commandes()->where('statut','!=','traitement')->paginate(3);
         return view('user.mes_commandes_nonRecup',['liste'=>$liste_commande_nonRecup]);
     }
 
@@ -189,7 +192,21 @@ class CompteController extends Controller
 
     public function toutCommandes(){ //renvoie la page de toutes les commandes
         $commandes = Commande::paginate(5);
-        return view('admin.admin_toutCommandes',['commandes'=>$commandes]);
+
+        //code pour la recette du jour
+        $commandes_du_jour = Commande::all();
+        $recette = 0;
+        if($commandes_du_jour){
+            foreach($commandes_du_jour as $c){
+                if($c->created_at->format('Y-m-d') == now()->format('Y-m-d')){
+                    foreach($c->pizza as $p){
+                        $recette += $p->prix;
+                    }
+                }
+            }
+        }
+
+        return view('admin.admin_toutCommandes',['commandes'=>$commandes,'recette'=>$recette]);
     }
 
     public function details_commande($id){ //renvoie la page details de la commande
@@ -197,4 +214,27 @@ class CompteController extends Controller
         $pizzas = $commande->pizza;
         return view('admin.admin_commandeDetails',['pizzas'=>$pizzas,'commande'=>$commande]);
     }
+
+    public function commande_par_date(Request $request){
+        $request->validate([
+            'laDate' => 'required|date_format:Y-m-d',
+        ]);
+
+        $commandes = Commande::all();
+
+        return view('admin.admin_commande_par_date',['commandes'=>$commandes,'date_verif'=>$request->laDate]);
+    }
+
+    public function tri_statut(){
+        $commandes = Commande::orderBy('statut','asc')->paginate(5);
+
+        return view('admin.admin_tri_statut',['commandes'=>$commandes]);
+    }
+
+    public function tri_date(){
+        $commandes = Commande::orderBy('created_at','asc')->paginate(5);
+
+        return view('admin.admin_tri_date',['commandes'=>$commandes]);
+    }
+
 }

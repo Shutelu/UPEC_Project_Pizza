@@ -7,7 +7,7 @@
 @section('content')
     @auth
     <div class="content">
-        <p>Vous authentifier admin</p>
+        <p>Vous êtes authentifié Admin</p>
         @if (Auth::user()->type == 'admin')
             <a href="{{route('pizza.ajout_form')}}">ajouter une pizza</a>
         @endif

@@ -10,7 +10,7 @@
 
 {{-- les contenues --}}
 @section('content')
-    <h1>Vous etes sur votre espace compte</h1>
+    <h1>Vous êtes sur votre espace compte</h1>
     <div>
         <p>Nom : {{$user->nom}}</p>
         <p>Prenom : {{$user->prenom}}</p>
