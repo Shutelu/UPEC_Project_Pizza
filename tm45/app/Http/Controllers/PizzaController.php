@@ -202,25 +202,4 @@ class PizzaController extends Controller
         }
     }
 
-    //pagination
-    // public function PizzaPagination(Request $request){
-    //     $pizza = paginate(3);
-    //     return view('');
-    // }
-    
-    // //autorisation voir les pizzas pour user authentifier
-    // public function view(Request $request,$id){
-    //     $pizza = Pizza::findOrFail($id);
-    //     $this->authorize('view',$pizza);
-    //     return view('voir_pizza',['pizza'=>$pizza]);
-    // }
-
-    // //autorisation supprimer les pizzas pour user authentifier
-    // public function delete(Request $request,$id){
-    //     $pizza = Pizza::findOrFail($id);
-    //     $this->authorize('delete',$pizza);
-    //     $pizza->delete();
-    //     return redirect('/');
-
-    // }
 }

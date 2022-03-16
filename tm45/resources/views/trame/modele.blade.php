@@ -33,6 +33,8 @@
                                 {{-- <li><a href="">Liste de tout les commandes</a></li> --}}
                             @endif
                             @if (Auth::user()->type == 'admin')
+                                <li><a href="{{route('admin.user_creation_form')}}">Creation</a></li>
+                                <li><a href="{{route('admin.gestion_form')}}">Gestion</a></li>
                                 <li><a href="{{route('admin.tout_pizza')}}">Tout les pizzas</a></li>
                                 <li><a href="{{route('admin.tout_commandes')}}">Tout les commandes</a></li>
                             @endif

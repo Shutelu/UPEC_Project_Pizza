@@ -56,19 +56,34 @@ Route::get('/logout',[AuthenticatedSessionController::class,'logout'])->name('lo
 ============
 */
 
-Route::get('/admin',[CompteController::class,'admin_home'])->middleware('auth')->middleware('is_admin');//pour admin
-Route::get('/ajout_pizza',[PizzaController::class,'ajout_form'])->middleware('auth')->middleware('is_admin')->name('pizza.ajout_form'); //formulaire ajout
-Route::post('/ajout_pizza',[PizzaController::class,'ajout_pizza'])->middleware('auth')->middleware('is_admin')->name('pizza.ajout'); //ajout
-Route::get('/edit_pizza/{id}',[PizzaController::class,'edit_form'])->middleware('auth')->middleware('is_admin')->name('pizza.edit_form'); //formulaire edition
-Route::post('/edit_pizza/{id}',[PizzaController::class,'edit_pizza'])->middleware('auth')->middleware('is_admin')->name('pizza.edit'); //edition
-Route::get('/supp_pizza/{id}',[PizzaController::class,'suppPizza_form'])->middleware('auth')->middleware('is_admin')->name('admin.supp_form');//formulaire de suppression
-Route::post('/supp_pizza/{id}',[PizzaController::class,'suppPizza'])->middleware('auth')->middleware('is_admin')->name('admin.supp_pizza');//supression
-Route::get('/admin/tout_les_pizzas',[CompteController::class,'toutPizza'])->middleware('auth')->middleware('is_admin')->name('admin.tout_pizza');//affiche tout les pizza de la bd
-Route::get('/admin/tout_les_commandes',[CompteController::class,'toutCommandes'])->middleware('auth')->middleware('is_admin')->name('admin.tout_commandes');// liste de tout commandes
-Route::get('/admin/details_commandes/{id}',[CompteController::class,'details_commande'])->middleware('auth')->middleware('is_admin')->name('admin.details_commande');//details de la commande
-Route::post('/admin/voir_commande_par_date',[CompteController::class,'commande_par_date'])->middleware('auth')->middleware('is_admin')->name('admin.admin_voir_commande_date');
-Route::get('/admin/tri_par_statut',[CompteController::class,'tri_statut'])->middleware('auth')->middleware('is_admin')->name('admin.commande_tri_statut');
-Route::get('/admin/tri_par_date',[CompteController::class,'tri_date'])->middleware('auth')->middleware('is_admin')->name('admin.commande_tri_date');
+//utilisation middleware auth et is_admin
+Route::middleware(['auth','is_admin'])->group(function(){
+    Route::get('/admin',[CompteController::class,'admin_home'])->name('admin.home');//pour admin
+    Route::get('/ajout_pizza',[PizzaController::class,'ajout_form'])->name('pizza.ajout_form'); //formulaire ajout
+    Route::post('/ajout_pizza',[PizzaController::class,'ajout_pizza'])->name('pizza.ajout'); //ajout
+    Route::get('/edit_pizza/{id}',[PizzaController::class,'edit_form'])->name('pizza.edit_form'); //formulaire edition
+    Route::post('/edit_pizza/{id}',[PizzaController::class,'edit_pizza'])->name('pizza.edit'); //edition
+    Route::get('/supp_pizza/{id}',[PizzaController::class,'suppPizza_form'])->name('admin.supp_form');//formulaire de suppression
+    Route::post('/supp_pizza/{id}',[PizzaController::class,'suppPizza'])->name('admin.supp_pizza');//supression
+    Route::get('/admin/tout_les_pizzas',[CompteController::class,'toutPizza'])->name('admin.tout_pizza');//affiche tout les pizza de la bd
+    Route::get('/admin/tout_les_commandes',[CompteController::class,'toutCommandes'])->name('admin.tout_commandes');// liste de tout commandes
+    Route::get('/admin/details_commandes/{id}',[CompteController::class,'details_commande'])->name('admin.details_commande');//details de la commande
+    Route::post('/admin/voir_commande_par_date',[CompteController::class,'commande_par_date'])->name('admin.admin_voir_commande_date');
+    Route::get('/admin/tri_par_statut',[CompteController::class,'tri_statut'])->name('admin.commande_tri_statut');
+    Route::get('/admin/tri_par_date',[CompteController::class,'tri_date'])->name('admin.commande_tri_date');
+    Route::get('/admin/user_creation_form',[CompteController::class,'creation_form'])->middleware('is_admin')->name('admin.user_creation_form');
+    Route::get('/admin/admin_creation_form',[CompteController::class,'admin_creation_form'])->name('admin.admin_creation_form');
+    Route::post('/admin/admin_creation',[CompteController::class,'admin_creation'])->name('admin.admin_creation');
+    Route::get('/admin/pizzaiolo_creation_from',[CompteController::class,'pizzaiolo_creation_form'])->name('admin.pizzaiolo_creation_from');
+    Route::post('/admin/pizzaiolo_creation',[CompteController::class,'pizzaiolo_creation'])->name('admin.pizzaiolo_creation');
+    Route::get('/admin/gestion_form',[CompteController::class,'gestion_form'])->name('admin.gestion_form');
+    Route::get('/admin/cook_edit_mdp_form/{id}',[CompteController::class,'cook_edit_mdp_form'])->name('admin.edit_mdp_form');
+    Route::post('/admin/cook_edit/{id}',[CompteController::class,'cook_edit_mdp'])->name('admin.cook_edit');
+    Route::get('/admin/supp_form/{id}',[CompteController::class,'admin_supp_form'])->name('admin.admin_supp_form');
+    Route::post('/admin/supp/{id}',[CompteController::class,'admin_supp'])->name('admin.admin_supp');
+});
+
+
 /*
 ============
     User
@@ -76,9 +91,9 @@ Route::get('/admin/tri_par_date',[CompteController::class,'tri_date'])->middlewa
 */
 
 //gestion du compte
-Route::get('/mon_compte',[CompteController::class,'mon_compte'])->name('mon_compte');
-Route::get('/mon_compte/edit_mdp',[CompteController::class,'edit_mdp_form'])->name('edit_mdp_form');
-Route::post('/mon_compte/edit_mdp',[CompteController::class,'edit_mdp'])->name('edit_mdp');
+Route::get('/mon_compte',[CompteController::class,'mon_compte'])->middleware('auth')->name('mon_compte');
+Route::get('/mon_compte/edit_mdp',[CompteController::class,'edit_mdp_form'])->middleware('auth')->name('edit_mdp_form');
+Route::post('/mon_compte/edit_mdp',[CompteController::class,'edit_mdp'])->middleware('auth')->name('edit_mdp');
 
 //panier
 Route::get('/mon_panier',[CompteController::class,'mon_panier'])->middleware('auth')->name('mon_panier');

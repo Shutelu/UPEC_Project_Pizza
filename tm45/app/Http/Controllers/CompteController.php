@@ -17,9 +17,10 @@ class CompteController extends Controller
     ===========================================================================
         Ce controlleur servira :
             - Pour la gestion du compte de User, Cook et Admin :
-                = mon_compte()
-                = edit_mdp_form()
-                = edit_mdp(request)
+                Pour User :
+                    = mon_compte()
+                    = edit_mdp_form()
+                    = edit_mdp(request)
                 Pour Cook :
                     = cook_liste()
                     = commande_details(id)
@@ -34,6 +35,15 @@ class CompteController extends Controller
                     = commande_par_date(request)
                     = tri_statut()
                     = tri_date()
+                    = creation_form()
+                    = admin_creation_form()
+                    = admin_creation(request)
+                    = pizzaiolo_creation_form()
+                    = gestion_form()
+                    = cook_edit_mdp_form(id)
+                    = cook_edit_mdp(request,id)
+                    = admin_supp_form(id)
+                    = admin_supp(id)
             - Pour la gestion du panier et de la commande de user:
                 = mon_panier()
                 = cree_commande()
@@ -235,6 +245,89 @@ class CompteController extends Controller
         $commandes = Commande::orderBy('created_at','asc')->paginate(5);
 
         return view('admin.admin_tri_date',['commandes'=>$commandes]);
+    }
+
+    public function creation_form(){
+        return view('admin.creation_form');
+    }
+
+    public function admin_creation_form(){
+        return view('admin.admin_creation_form');
+    }
+
+    public function admin_creation(Request $request){
+        $request->validate([
+            'nom' => 'required|string|max:40|min:1',
+            'prenom' => 'required|string|max:40|min:1',
+            'login' => 'required|string|unique:users|max:30|min:1',
+        ]);
+
+        $user = new User();
+        $user->nom = $request->nom;
+        $user->prenom = $request->prenom;
+        $user->login = $request->login;
+        $user->type = 'admin';
+        $user->mdp = Hash::make('admin');// mot de passe par defaut
+        $user->save();
+
+        return redirect()->route('admin.user_creation_form')->with('etat','Un nouveau compte administrateur a été crée !');
+    }
+
+    public function pizzaiolo_creation_form(){
+        return view('admin.admin_pizzaiolo_creation_form');
+    }
+
+    public function pizzaiolo_creation(Request $request){
+        $request->validate([
+            'nom' => 'required|string|max:40|min:1',
+            'prenom' => 'required|string|max:40|min:1',
+            'login' => 'required|string|unique:users|max:30|min:1',
+        ]);
+
+        $user = new User();
+        $user->nom = $request->nom;
+        $user->prenom = $request->prenom;
+        $user->login = $request->login;
+        $user->type = 'cook';
+        $user->mdp = Hash::make('cook');// mot de passe par defaut
+        $user->save();
+
+        return redirect()->route('admin.user_creation_form')->with('etat','Un nouveau compte pizzaiolo a été crée !');
+    }
+
+    public function gestion_form(){
+        $cooks = User::where('type','=','cook')->get();
+        $admins = User::where('type','=','admin')->get();
+
+        return view('admin.admin_gestion',['cooks'=>$cooks,'admins'=>$admins]);
+    }
+
+    public function cook_edit_mdp_form($id){
+        $cook = User::findOrFail($id);
+        return view('admin.cook_edit_mdp_form',['cook'=>$cook]);
+    }
+
+    public function cook_edit_mdp(Request $request,$id){
+        $request->validate([
+            'mdp' => 'required|confirmed|max:60|min:8',
+        ]);
+
+        $cook = User::findOrFail($id);
+        $cook->mdp = Hash::make($request->mdp);
+        $cook->save();
+
+        return redirect()->route('admin.gestion_form')->with('etat','Le mot de passe du pizzaiolo a été changé !');
+    }
+
+    public function admin_supp_form($id){
+        $user = User::findOrFail($id);
+        return view('admin.admin_supp_form',['user'=>$user]);
+    }
+
+    public function admin_supp($id){
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('admin.gestion_form')->with('etat','L\'utilisateur a été supprimé !');
     }
 
 }
