@@ -29,8 +29,10 @@ Finally, you can open the web application with the internal PHP server by using 
 And open your favorite web browser and enter in the URL "localhost:8000/".
 <br>
 <br>
-
-
+!!! This project is already finished and will no longer be update
+<br>
+<br>
+<br>
 
 
 
