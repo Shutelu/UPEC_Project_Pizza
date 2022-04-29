@@ -1,7 +1,7 @@
 # UPEC_Project_restaurant
 
 Description :<br>
-This is one of my university project at UPEC (Université Paris-Est Créteil).
+This is one of my university project at UPEC (Université Paris-Est Créteil) in 2021-2022.
 The goal of the project is to create a website that can place pizza orders.<br>
 This project is done by using the framework LARAVEL, it contains PHP/HTML/CSS codes and files.
 It uses PHP version 8.1.0 and LARAVEL version 9.1.0.
@@ -33,8 +33,11 @@ And open your favorite web browser and enter in the URL "localhost:8000/".
 <br>
 <br>
 <br>
-
-
+Author : Changkai WANG<br>
+Contact : https://www.linkedin.com/in/changkai-wang-691465236/
+<br>
+<br>
+<br>
 
 SQL codes for the database, 
 Save this code into a file with .sql extension then open a CMD, Git Bash, Terminal on the location of the file 
