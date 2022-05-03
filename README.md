@@ -12,7 +12,7 @@ Please use sqlite https://www.sqlite.org/index.html for more simplicity (you can
 
 To open and use this project correctly:
 - Step 1:<br>
-You can either use "git clone https://github.com/Shutelu/UPEC_Project_restaurant.git"<br>
+You can either use "git clone https://github.com/Shutelu/UPEC_Project_Pizza.git"<br>
 Or if you download it manually you will need to unzip it and place it into a directory.
 - Step 2:<br>
 Open a CMD, Git Bash, Terminal, etc.. at the directory and enter "composer update", it will download the necessary files for the project to work.
