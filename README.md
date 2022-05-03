@@ -1,4 +1,4 @@
-# UPEC Project Restaurant
+# UPEC Project Pizza
 
 Description :<br>
 This is one of my university project at UPEC (Université Paris-Est Créteil) in 2021-2022.
