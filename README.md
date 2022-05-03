@@ -4,7 +4,7 @@ Description :<br>
 This is one of my university project at UPEC (Université Paris-Est Créteil) in 2021-2022.
 The goal of the project is to create a website that can place pizza orders.<br>
 This project is done by using the framework LARAVEL, it contains PHP/HTML/CSS codes and files.
-It uses PHP version 8.1.0 and LARAVEL version 9.1.0.
+It uses PHP version 8.1.0 and LARAVEL version 9.1.0 or higher.
 
 You will need composer https://getcomposer.org/ to open this project.<br>
 You will also need a database to work with the project (see the SQL codes below).<br>
