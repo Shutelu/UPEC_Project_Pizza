@@ -28,7 +28,7 @@ Enter "php artisan key:generate" in the CMD, Git Bash, Terminal, others that you
 Finally, you can open the web application with the internal PHP server by using the command "php artisan serve" 
 And open your favorite web browser and enter in the URL "localhost:8000/".
 
-The administrator is already created (login = admin, password = admin)
+The administrator is already created (login = admin, password = admin)<br>
 The cook is already created (login = cook, password = cook)
 <br>
 <br>
