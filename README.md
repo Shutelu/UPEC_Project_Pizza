@@ -1,4 +1,4 @@
-# UPEC_Project_restaurant
+# UPEC Project Restaurant
 
 Description :<br>
 This is one of my university project at UPEC (Université Paris-Est Créteil) in 2021-2022.
@@ -27,6 +27,8 @@ Enter "php artisan key:generate" in the CMD, Git Bash, Terminal, others that you
 
 Finally, you can open the web application with the internal PHP server by using the command "php artisan serve" 
 And open your favorite web browser and enter in the URL "localhost:8000/".
+
+The administrator is already created (login = admin, password = admin)
 <br>
 <br>
 !!! This project is already finished and will no longer be update
