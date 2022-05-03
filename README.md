@@ -29,6 +29,7 @@ Finally, you can open the web application with the internal PHP server by using 
 And open your favorite web browser and enter in the URL "localhost:8000/".
 
 The administrator is already created (login = admin, password = admin)
+The cook is already created (login = cook, password = cook)
 <br>
 <br>
 !!! This project is already finished and will no longer be update
