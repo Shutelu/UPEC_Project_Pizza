@@ -16,7 +16,7 @@ To open and use this project correctly:
 You can either use `git clone https://github.com/Shutelu/UPEC_Project_Pizza.git`<br>
 Or if you download it manually you will need to unzip it and place it into a directory.
 - Step 2:<br>
-Open a CMD, Git Bash, Terminal, etc.. at the directory and enter "composer update", it will download the necessary files for the project to work.
+Open a CMD, Git Bash, Terminal, etc.. at the directory and enter `composer update`, it will download the necessary files for the project to work.
 - Step 3:<br>
 Open the directory with a text-editor and go to the database directory and place your database here.
 - Step 4:<br>
