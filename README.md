@@ -2,7 +2,7 @@
 Web programmation Project UPEC L2S4
 
 **Description :**<br>
-This is one of my university project at UPEC (Université Paris-Est Créteil) in 2021-2022.
+This is one of my university projects at UPEC (Université Paris-Est Créteil) in 2021-2022.
 The goal of the project is to create a website that can place pizza orders.<br>
 This project is done by using the framework LARAVEL, it contains PHP/HTML/CSS codes and files.
 It uses PHP version 8.1.0 and LARAVEL version 9.1.0 or higher.
