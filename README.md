@@ -33,7 +33,7 @@ The administrator is already created (login = admin, password = admin)<br>
 The cook is already created (login = cook, password = cook)
 <br>
 <br>
-!!! This project is already finished and will no longer be update
+!!! This project is already finished and will no longer be updated
 <br>
 <br>
 <br>
