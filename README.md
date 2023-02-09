@@ -37,7 +37,6 @@ The cook is already created (login = cook, password = cook)
 <br>
 <br>
 <br>
-Author : Changkai WANG<br>
 Contact : [Linkedin](https://www.linkedin.com/in/changkaiwang/)
 <br>
 <br>
